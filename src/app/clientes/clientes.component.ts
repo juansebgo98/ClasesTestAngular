@@ -9,8 +9,13 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './clientes.component.html'
 })
 export class ClientesComponent {
+  public busqueda: string = "";
+
   clientes: Cliente[];
   paginador: any;
+  searchTerm = '';
+  filteredProducts: Cliente[];
+  
   constructor(private clienteService: ClienteService, private activateRoute: ActivatedRoute){
 
   }
@@ -23,6 +28,7 @@ export class ClientesComponent {
         page =  0;
       }
 
+      /*
       this.clienteService.getClientes(page).subscribe(
         //function (clientes){this.clientes = clientes}
         response => {
@@ -30,36 +36,35 @@ export class ClientesComponent {
           this.paginador = response;
         }
       );
+      */
+      this.clienteService.getClientes().subscribe(
+        //function (clientes){this.clientes = clientes}
+        response => {
+          this.clientes = response as Cliente[];
+          this.paginador = response;
+          this.filteredProducts = this.clientes;
+        }
+      );
     }
     );
-   
+  
 
   }
 
-  delete(cliente: Cliente): void{
-    swal.fire({
-      title: '¿Estas seguro?',
-      text: `¿Estas seguro de eliminar al cliente ${cliente.nombre} ${cliente.apellido}?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminarlo!',
-      cancelButtonText:'No,Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.clienteService.delete(cliente.id).subscribe(
-          response=>{
-            this.clientes=this.clientes.filter(cli => cli!= cliente);
-            swal.fire(
-              'Eliminado!',
-              'El cliente ha sido eliminado.',
-              'success'
-            )
-          }
-        );
-        
-      }
-    })
+  
+  filterProducts() {
+    this.filteredProducts = this.clientes.filter(product =>
+      product.nombre.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  increment(product) {
+    product.id++;
+  }
+
+  decrement(product) {
+    if (product.id > 0) {
+      product.id--;
+    }
   }
 }

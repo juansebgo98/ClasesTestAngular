@@ -6,6 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators'
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { faPlus } from '@fortawesome/fontawesome-free';
+import { FontAwesomeIcon } from '@fortawesome/fontawesome-free';
 
 @Injectable({
   providedIn: 'root'
@@ -17,30 +19,8 @@ export class ClienteService {
   constructor(private http: HttpClient, private router: Router) { 
 
   }
+  
 
-  getClientes(page: number): Observable<any>{ 
-    return this.http.get(this.urlEndPoint+'/page/'+page).pipe(
-      tap((response: any) =>{
-        console.log('ClienteService: tap1');
-        (response.content as Cliente[]).forEach(cliente=>{
-          console.log(cliente.nombre);
-        })
-      })
-      ,map((response:any) => {
-       (response.content as Cliente[]).map(cliente =>{
-        cliente.nombre = cliente.nombre.toUpperCase();
-        
-        let datePipe = new DatePipe('es');
-        cliente.createAt = datePipe.transform(cliente.createAt,'EEEE dd,MMM yyyy');
-        //cliente.createAt = formatDate(cliente.createAt,'EEEE dd-MMM-yyyy','en-US');
-        return cliente;
-       });
-       return response;
-      })
-    );
-  }
-
-/*
   getClientes(): Observable<Cliente[]>{ 
     return this.http.get(this.urlEndPoint).pipe(
       map(response => {
@@ -56,7 +36,7 @@ export class ClienteService {
       })
     );
   }
-*/
+
   crear(cliente:Cliente) : Observable<Cliente>{
     return this.http.post(this.urlEndPoint,cliente,{headers: this.httpHeaders}).pipe(
       map((response: any) => response.cliente as Cliente),

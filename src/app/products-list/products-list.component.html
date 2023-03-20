@@ -1,0 +1,33 @@
+<!-- archivo: product-list.component.html -->
+<div class="container">
+    <div class="header">
+      <h1>Lista de Productos</h1>
+      <div class="search">
+        <label for="search">Buscar:</label>
+        <input type="text" [(ngModel)]="searchText" id="search" name="search">
+      </div>
+      <div class="filter">
+        <label for="storage">Almacenamiento:</label>
+        <select [(ngModel)]="selectedStorage" id="storage" name="storage">
+          <option *ngFor="let storage of almacenamientos" [value]="storage.nombre">{{ storage.nombre }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="product-list">
+      <div *ngFor="let product of sortedProducts" class="product-card">
+        <div class="image">
+          <img [src]="product.imagen" alt="{{ product.nombre }}">
+        </div>
+        <div class="details">
+          <h2>{{ product.nombre }}</h2>
+          <p>Fecha de caducidad: {{ product.fechaCaducidad | date:'dd/MM/yyyy' }}</p>
+          <div class="quantity">
+            <button (click)="decreaseQuantity(product)">-</button>
+            <span>{{ product.cantidad }}</span>
+            <button (click)="increaseQuantity(product)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
