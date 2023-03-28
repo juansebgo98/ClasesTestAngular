@@ -1,15 +1,15 @@
-import { SubProducto } from './SubProducto';
+import { Inventario } from './Inventario';
 
 export class Producto {
   id: number;
+  imagen: string;
   nombre: string;
-  cantidad: number;
-  listaSubProductos: SubProducto[];
+  inventarios: Inventario[];
+  fechaMasProxima: Date;
 
-  constructor(id?: number, nombre?: string, cantidad?: number, listaSubProductos?: SubProducto[]) {
+  constructor(id?: number, nombre?: string, cantidad?: number, inventarios?: Inventario[]) {
       this.id = id;
       this.nombre = nombre;
-      this.cantidad = cantidad;
-      this.listaSubProductos = listaSubProductos;
+      this.inventarios = inventarios;
   }
 }

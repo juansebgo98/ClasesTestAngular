@@ -1,0 +1,36 @@
+<h2>Detalle de {{producto?.nombre}}</h2>
+
+<div *ngFor="let almacenamiento of almacenamientos">
+  <div class="row mb-4"></div>
+  <h3>Inventario de {{almacenamiento.nombre}}</h3>
+  <table mat-table [dataSource]="almacenamiento.inventarios" class="mat-elevation-z8">
+    <ng-container matColumnDef="cantidad">
+      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+      <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaCaducidad">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let element" >
+        <p [style.color]="(diasParaCaducar(element.fechaCaducidad) < 5) ? 'red' : 'black'">{{ datePipe.transform(element.fechaCaducidad, 'dd-MM-yy') }}</p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="buttons-container">
+          <button mat-mini-fab color="primary" (click)="incrementCantidad(element)">
+            <mat-icon>add</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" (click)="decrementCantidad(element)">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['cantidad', 'fechaCaducidad', 'acciones']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['cantidad', 'fechaCaducidad', 'acciones'];"></tr>
+  </table>
+</div>

@@ -4,28 +4,34 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
-import { ClientesComponent } from './clientes/clientes.component';
-import { FormComponent } from './clientes/form.component';
 import { PaginatorComponent } from './paginator/paginator.component'
-import { ClienteService } from './clientes/cliente.service';
 import {HttpClientModule} from '@angular/common/http'
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
-import localeES from '@angular/common/locales/es'
-import { ProductsListComponent } from './products-list/products-list.component';
+import localeES from '@angular/common/locales/es';
+import { AlmacenamientoService } from './models/Services/almacenamiento.service';
+import { InventarioService } from './models/Services/inventario.service';
+import { ProductoService } from './models/Services/producto.service';
+import { ProductListComponent } from './products-list/products-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { InventoryComponent } from './producto-inventario/producto-inventario.component';
+import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+
 
 registerLocaleData(localeES,'es');
 
 const routes: Routes = [
-  {path:'', redirectTo:'/clientes', pathMatch:'full'},
+  {path:'', redirectTo:'/productos', pathMatch:'full'},
   {path:'directivas', component: DirectivaComponent},
-  {path:'clientes', component: ClientesComponent},
-  {path:'clientes/page/:page', component: ClientesComponent},
-  {path:'clientes/form', component: FormComponent},
-  {path:'clientes/form/:id', component: FormComponent},
-  {path:'products-list', component: ProductsListComponent}
+  {path:'productos', component: ProductListComponent},
+  {path:'inventario/:id', component: InventoryComponent}
 ]
 
 @NgModule({
@@ -34,20 +40,27 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     DirectivaComponent,
-    ClientesComponent,
-    FormComponent,
     PaginatorComponent,
-    ProductsListComponent
+    ProductListComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    CommonModule, 
+    MatTableModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
-    ClienteService
+    AlmacenamientoService,
+    InventarioService,
+    ProductoService
   ],
   bootstrap: [AppComponent]
 })

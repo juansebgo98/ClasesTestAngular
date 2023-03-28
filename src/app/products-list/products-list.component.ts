@@ -1,83 +1,55 @@
+
 import { Component, OnInit } from '@angular/core';
+import { Inventario } from '../models/Inventario';
 import { Producto } from '../models/Producto';
-import { SubProducto } from '../models/SubProducto';
-import { Almacenamiento } from '../models/Almacenamiento';
+import { InventarioService } from '../models/Services/inventario.service';
+import { ProductoService } from '../models/Services/producto.service';
+import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.css']
+  styleUrls: ['./products-list.component.css'],
+  providers: [DatePipe]
 })
-export class ProductsListComponent implements OnInit {
-  productos: Producto[] = [];
-  searchText: string = '';
-  selectedStorage: Almacenamiento | null = null;
-  sortedProducts: SubProducto[] = [];
+export class ProductListComponent implements OnInit {
 
-  constructor() { }
+  productos: Producto[];
+  filteredProducts: Producto[];
+  searchTerm: string = "";
+  
+  constructor(private productoService: ProductoService, private datePipe: DatePipe) { }
 
-  ngOnInit(): void {
-    const almacenamiento1 = new Almacenamiento(1, 'Almacenamiento 1', 'Lugar 1', []);
-    const producto1 = new SubProducto(1, 'Producto 1', 'imagen1.png', 'Descripción 1', new Date('2023-05-01'), 10, 1, almacenamiento1);
-    const producto2 = new SubProducto(2, 'Producto 2', 'imagen2.png', 'Descripción 2', new Date('2023-06-01'), 20, 1, almacenamiento1);
-    const producto3 = new SubProducto(3, 'Producto 3', 'imagen3.png', 'Descripción 3', new Date('2023-04-01'), 30, 1, almacenamiento1);
-
-    almacenamiento1.productos.push(producto1, producto2, producto3);
-
-    const almacenamiento2 = new Almacenamiento(1, 'Almacenamiento 2', 'Lugar 2', []);
-    const producto4 = new SubProducto(1, 'Producto 4', 'imagen1.png', 'Descripción 1', new Date('2023-05-01'), 10, 1, almacenamiento2);
-    const producto5 = new SubProducto(2, 'Producto 5', 'imagen2.png', 'Descripción 2', new Date('2023-06-01'), 20, 1, almacenamiento2);
-    const producto6 = new SubProducto(3, 'Producto 6', 'imagen3.png', 'Descripción 3', new Date('2023-04-01'), 30, 1, almacenamiento2);
+  ngOnInit() {
+    this.obtenerProductos();
     
-    almacenamiento2.productos.push(producto4, producto5, producto6);
-
-    this.productos = [almacenamiento1, almacenamiento2];
-    this.sortedProducts = this.sortProductsByDate();
   }
 
-  sortProductsByDate(): SubProducto[] {
-    let allProducts: SubProducto[] = [];
-
-    for (const almacenamiento of this.productos) {
-      allProducts = allProducts.concat(almacenamiento.productos);
-    }
-
-    return allProducts.sort((a, b) => a.fechaCaducidad.getTime() - b.fechaCaducidad.getTime());
+  filterProducts() {
+    this.filteredProducts = this.productos.filter(product =>
+      product.nombre.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
-  filterProductsByStorage(products: SubProducto[]): SubProducto[] {
-    if (!this.selectedStorage) {
-      return products;
-    }
-
-    return products.filter(p => p.almacenamiento === this.selectedStorage);
+  obtenerProductos(): void {
+    this.productoService.getProductos()
+      .subscribe(productos => {
+        productos.forEach(producto => {
+          producto.fechaMasProxima = new Date(Math.min(...producto.inventarios.map(i => new Date(i.fechaCaducidad).getTime()).filter(t => !isNaN(t))));
+        });
+        this.productos = productos.sort((a, b) => a.fechaMasProxima.getTime() - b.fechaMasProxima.getTime());
+        this.filteredProducts = this.productos;
+      });
   }
 
-  filterProductsByName(products: SubProducto[]): SubProducto[] {
-    if (!this.searchText) {
-      return products;
-    }
 
-    return products.filter(p => p.nombre.toLowerCase().includes(this.searchText.toLowerCase()));
-  }
+  diasParaCaducar(fechaCaducidad: Date): number {
+    const MILISEGUNDOS_POR_DIA = 1000 * 60 * 60 * 24;
+    const hoy = new Date();
+    const fechaCad = new Date(fechaCaducidad);
+    const diferencia = fechaCad.getTime() - hoy.getTime();
+    return Math.ceil(diferencia / MILISEGUNDOS_POR_DIA);
+}
 
-  onStorageChange(storage: Almacenamiento | null): void {
-    this.selectedStorage = storage;
-    this.sortedProducts = this.sortProductsByDate();
-  }
-
-  onSearchChange(searchText: string): void {
-    this.searchText = searchText;
-    this.sortedProducts = this.sortProductsByDate();
-  }
-
-  increaseProductQuantity(product: SubProducto): void {
-    product.cantidad += 1;
-  }
-
-  decreaseProductQuantity(product: SubProducto): void {
-    if (product.cantidad > 0) {
-      product.cantidad -= 1;
-    }
-  }
 }
