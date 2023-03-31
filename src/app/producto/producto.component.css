@@ -1,0 +1,10 @@
+/* Estilos para centrar el contenido en el centro de la página */
+html,
+body {
+  height: 100%;
+}
+
+.mat-card {
+  max-width: 400px; /* ajusta el ancho del card según tus necesidades */
+  margin: auto;
+}

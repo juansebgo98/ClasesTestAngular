@@ -4,16 +4,13 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Inventario } from '../Inventario';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Constants } from 'src/app/utils/constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InventarioService {
 
-  
-
-  private apiUrl = 'http://192.168.18.158:8080/api/inventarios';
-  private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -22,7 +19,7 @@ export class InventarioService {
    * @returns Lista de inventarios
    */
   getInventarios(): Observable<Inventario[]> {
-    return this.http.get<Inventario[]>(this.apiUrl);
+    return this.http.get<Inventario[]>(Constants.API_URL_INVENTARIO);
   }
 
   /**
@@ -31,7 +28,7 @@ export class InventarioService {
    * @returns 
    */
   getInventario(id: number): Observable<Inventario> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${Constants.API_URL_INVENTARIO}/${id}`;
     return this.http.get<Inventario>(url).pipe(
         catchError(e=>{
             this.router.navigate(['/inventario']);
@@ -42,7 +39,7 @@ export class InventarioService {
     );
   }
   getInventarioProductoAlmacenamiento(idProducto: number, id: number) {
-    const url = `${this.apiUrl}/producto/${idProducto}/almacenamiento/${id}`;
+    const url = `${Constants.API_URL_INVENTARIO}/producto/${idProducto}/almacenamiento/${id}`;
     return this.http.get<Inventario[]>(url).pipe(
         catchError(e=>{
             this.router.navigate(['/inventario']);
@@ -58,7 +55,7 @@ export class InventarioService {
    * @returns 
    */
   getInventarioProducto(id: number): Observable<Inventario[]> {
-    const url = `${this.apiUrl}/producto/${id}`;
+    const url = `${Constants.API_URL_INVENTARIO}/producto/${id}`;
     return this.http.get<Inventario[]>(url).pipe(
         catchError(e=>{
             this.router.navigate(['/inventario']);
@@ -75,7 +72,7 @@ export class InventarioService {
    * @returns 
    */
   crearInventario(inventario: Inventario): Observable<Inventario> {
-    return this.http.post<Inventario>(this.apiUrl, inventario).pipe(
+    return this.http.post<Inventario>(Constants.API_URL_INVENTARIO, inventario).pipe(
         map((response: any) => response.producto as Inventario),
         catchError(e=>{
           if(e.status == 400){
@@ -94,8 +91,8 @@ export class InventarioService {
    * @returns 
    */
   updateInventario(inventario: Inventario): Observable<Inventario> {
-    const url = `${this.apiUrl}/${inventario.id}`;
-    return this.http.put<Inventario>(url, inventario, {headers: this.httpHeaders}).pipe(
+    const url = `${Constants.API_URL_INVENTARIO}/${inventario.id}`;
+    return this.http.put<Inventario>(url, inventario, {headers: Constants.httpHeaders}).pipe(
         catchError(e=>{
           if(e.status == 400){
             return throwError(e);
@@ -113,8 +110,8 @@ export class InventarioService {
    * @returns 
    */
   aumentarInventario(inventario: Inventario, cantidad: number): Observable<Inventario> {
-    const url = `${this.apiUrl}/${inventario.id}/aumentar/${cantidad}`;
-    return this.http.put<Inventario>(url, inventario, {headers: this.httpHeaders}).pipe(
+    const url = `${Constants.API_URL_INVENTARIO}/${inventario.id}/aumentar/${cantidad}`;
+    return this.http.put<Inventario>(url, inventario, {headers: Constants.httpHeaders}).pipe(
         catchError(e=>{
           if(e.status == 400){
             return throwError(e);
@@ -132,8 +129,8 @@ export class InventarioService {
    * @returns 
    */
   reduceInventario(inventario: Inventario, cantidad: number): Observable<Inventario> {
-    const url = `${this.apiUrl}/${inventario.id}/reducir/${cantidad}`;
-    return this.http.put<Inventario>(url, inventario, {headers: this.httpHeaders}).pipe(
+    const url = `${Constants.API_URL_INVENTARIO}/${inventario.id}/reducir/${cantidad}`;
+    return this.http.put<Inventario>(url, inventario, {headers: Constants.httpHeaders}).pipe(
         catchError(e=>{
           if(e.status == 400){
             return throwError(e);
@@ -151,8 +148,8 @@ export class InventarioService {
    * @returns 
    */
   deleteInventario(id: number): Observable<{}> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete(url, {headers: this.httpHeaders}).pipe(
+    const url = `${Constants.API_URL_INVENTARIO}/${id}`;
+    return this.http.delete(url, {headers: Constants.httpHeaders}).pipe(
         catchError(e=>{
           console.error(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error,'error');

@@ -50,6 +50,6 @@ export class ProductListComponent implements OnInit {
     const fechaCad = new Date(fechaCaducidad);
     const diferencia = fechaCad.getTime() - hoy.getTime();
     return Math.ceil(diferencia / MILISEGUNDOS_POR_DIA);
-}
+  }
 
 }

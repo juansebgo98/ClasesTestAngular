@@ -3,6 +3,7 @@
     <div class="col-12">
       <div class="search-container">
         <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm" (keyup)="filterProducts()">
+        <a routerLink="/producto" class="btn btn-success btn-create-product">Nuevo Producto</a>
       </div>
     </div>
   </div>
@@ -12,13 +13,14 @@
       <div class="card card-height">
         <img class="card-img-top" [src]="producto.imagen" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">{{producto.nombre}}</h5>
+          <h5 class="card-title card-title-highlight">{{producto.nombre}}</h5>
           <div *ngIf="producto.fechaMasProxima != 'Invalid Date'">
             <p class="card-text"  [style.color]="(diasParaCaducar(producto.fechaMasProxima) < 5) ? 'red' : 'black'">
                 Fecha de caducidad: {{ datePipe.transform(producto.fechaMasProxima, 'dd-MM-yy') }}
             </p>
           </div>
-          <a [routerLink]="['/inventario', producto.id]" class="btn btn-primary">Ver detalles</a>
+          <a [routerLink]="['/inventario', producto.id]" class="btn btn-primary mr-2">Ver Inventario</a>
+          <a [routerLink]="['/producto', producto.id]" class="btn btn-secondary ml-auto">Editar</a>
         </div>
       </div>
     </div>

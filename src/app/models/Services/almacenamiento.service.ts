@@ -4,23 +4,21 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Almacenamiento } from '../Almacenamiento';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Constants } from 'src/app/utils/constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlmacenamientoService {
 
-  private apiUrl = 'http://192.168.18.158:8080/api/almacenamiento';
-  private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
-
   constructor(private http: HttpClient, private router: Router) { }
 
   getAlmacenamientos(): Observable<Almacenamiento[]> {
-    return this.http.get<Almacenamiento[]>(this.apiUrl);
+    return this.http.get<Almacenamiento[]>(Constants.API_URL_ALMACENAMIENTO);
   }
 
   getAlmacenamiento(id: number): Observable<Almacenamiento> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${Constants.API_URL_ALMACENAMIENTO}/${id}`;
     return this.http.get<Almacenamiento>(url).pipe(
         catchError(e=>{
             this.router.navigate(['/almacenamiento']);
@@ -32,7 +30,7 @@ export class AlmacenamientoService {
   }
 
   getAlmacenamientoProducto(id: number): Observable<Almacenamiento[]> {
-    const url = `${this.apiUrl}/producto/${id}`;
+    const url = `${Constants.API_URL_ALMACENAMIENTO}/producto/${id}`;
     return this.http.get<Almacenamiento[]>(url).pipe(
         catchError(e=>{
             this.router.navigate(['/almacenamiento']);
@@ -44,7 +42,7 @@ export class AlmacenamientoService {
   }
 
   crearAlmacenamiento(almacenamiento: Almacenamiento): Observable<Almacenamiento> {
-    return this.http.post<Almacenamiento>(this.apiUrl, almacenamiento).pipe(
+    return this.http.post<Almacenamiento>(Constants.API_URL_ALMACENAMIENTO, almacenamiento).pipe(
         map((response: any) => response.almacenamiento as Almacenamiento),
         catchError(e=>{
           if(e.status == 400){
@@ -58,8 +56,8 @@ export class AlmacenamientoService {
   }
 
   updateAlmacenamiento(almacenamiento: Almacenamiento): Observable<Almacenamiento> {
-    const url = `${this.apiUrl}/${almacenamiento.id}`;
-    return this.http.put<Almacenamiento>(url, almacenamiento, {headers: this.httpHeaders}).pipe(
+    const url = `${Constants.API_URL_ALMACENAMIENTO}/${almacenamiento.id}`;
+    return this.http.put<Almacenamiento>(url, almacenamiento, {headers: Constants.httpHeaders}).pipe(
         catchError(e=>{
           if(e.status == 400){
             return throwError(e);
@@ -72,8 +70,8 @@ export class AlmacenamientoService {
   }
 
   deleteAlmacenamiento(id: number): Observable<{}> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete(url, {headers: this.httpHeaders}).pipe(
+    const url = `${Constants.API_URL_ALMACENAMIENTO}/${id}`;
+    return this.http.delete(url, {headers: Constants.httpHeaders}).pipe(
         catchError(e=>{
           console.error(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error,'error');

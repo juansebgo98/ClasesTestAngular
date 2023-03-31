@@ -2,14 +2,16 @@
     border-radius: 0;
   }
   
+  .card-title-highlight {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
   .card img {
     object-fit: cover;
-  }
-
-  .card-img-top:hover {
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
   }
   
   .card .card-body {
@@ -24,6 +26,7 @@
   .card .card-footer button {
     color: #fff;
   }
+  
   
   .white-text {
     color: #ffffff;
@@ -56,3 +59,15 @@
   .card-height {
     height: 100%;
   }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .btn-create-product {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+  

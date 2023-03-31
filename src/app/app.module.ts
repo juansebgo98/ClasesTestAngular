@@ -22,6 +22,13 @@ import { MatCardModule } from '@angular/material/card';
 import { InventoryComponent } from './producto-inventario/producto-inventario.component';
 import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ProductoComponent } from './producto/producto.component';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
+
 
 
 
@@ -31,7 +38,9 @@ const routes: Routes = [
   {path:'', redirectTo:'/productos', pathMatch:'full'},
   {path:'directivas', component: DirectivaComponent},
   {path:'productos', component: ProductListComponent},
-  {path:'inventario/:id', component: InventoryComponent}
+  {path:'inventario/:id', component: InventoryComponent},
+  {path:'producto/:id', component: ProductoComponent},
+  {path:'producto', component: ProductoComponent}
 ]
 
 @NgModule({
@@ -42,7 +51,8 @@ const routes: Routes = [
     DirectivaComponent,
     PaginatorComponent,
     ProductListComponent,
-    InventoryComponent
+    InventoryComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +65,10 @@ const routes: Routes = [
     MatTableModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgxScannerQrcodeModule
   ],
   providers: [
     AlmacenamientoService,
