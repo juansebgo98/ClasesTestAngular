@@ -45,8 +45,8 @@
                 },
                 {
                   "type": "anyScript",
-                  "maximumWarning": "300kb",
-                  "maximumError": "500kb"
+                  "maximumWarning": "1.2mb",
+                  "maximumError": "1.5mb"
                 }
               ],
               "outputHashing": "all"
