@@ -15,7 +15,7 @@ RUN npm install -g npm@9.3.1 && npm install --save-dev @angular/cli@15.1.6 && np
 COPY . .
 
 # Build the Angular app for production
-RUN ng build --prod
+RUN ng build
 
 # Exponer el puerto 80 en la imagen
 EXPOSE 8081
