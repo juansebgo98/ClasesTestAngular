@@ -20,4 +20,4 @@ RUN ng build
 EXPOSE 8082
 
 # Set the command to start the Angular app when the container starts
-CMD ng serve --host 192.168.18.243
+CMD ng serve --host $(hostname -i)
