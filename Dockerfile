@@ -1,5 +1,6 @@
 # Use an official Node.js runtime as a parent image
-FROM node:14-alpine
+FROM node:18.13.0-alpine
+
 
 # Set the working directory to /app
 WORKDIR /app
@@ -15,6 +16,9 @@ COPY . .
 
 # Build the Angular app for production
 RUN ng build --prod
+
+# Exponer el puerto 80 en la imagen
+EXPOSE 8081
 
 # Set the command to start the Angular app when the container starts
 CMD ["npm", "start"]
