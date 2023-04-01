@@ -17,7 +17,7 @@ COPY . .
 RUN ng build
 
 # Exponer el puerto 80 en la imagen
-EXPOSE 8081
+EXPOSE 8082
 
 # Set the command to start the Angular app when the container starts
-CMD ["npm", "start"]
+CMD ng serve --host 0.0.0.0
