@@ -34,6 +34,7 @@ export class ProductoComponent implements OnInit {
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.idActual = parseInt(id);
+
     if (id !== null) {
       this.productoService.getProducto(+id).subscribe(
         producto => {
@@ -65,7 +66,7 @@ export class ProductoComponent implements OnInit {
     this.producto.nombre = this.formularioProducto.value.nombre;
     this.producto.imagen = this.formularioProducto.value.imagen;
 
-    if (this.producto.id !== this.idActual) {
+    if (this.producto.id == this.idActual) {
       this.productoService.updateProducto(this.producto).subscribe(
         () => this.router.navigate(['/'])
       );
