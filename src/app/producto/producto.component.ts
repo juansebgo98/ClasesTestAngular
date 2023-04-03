@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BarcodeFormat } from '@zxing/library';
+import Swal from 'sweetalert2';
+
 
 import { Producto } from '../models/Producto';
 import { ProductoService } from '../models/Services/producto.service';
@@ -27,9 +29,9 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.formularioProducto = this.formBuilder.group({
-      id: [''],
+      id: ['', Validators.required],
       nombre: ['', Validators.required],
-      imagen: ['', Validators.required]
+      imagen: ['https://www.cardboardboxshop.com.au/wp-content/uploads/2020/10/Archive-Carton.jpg', Validators.required]
     });
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -59,9 +61,41 @@ export class ProductoComponent implements OnInit {
     this.submitted = true;
 
     if (this.formularioProducto.invalid) {
+      // Resaltar campos inválidos en rojo
+      Object.keys(this.formularioProducto.controls).forEach(key => {
+        this.formularioProducto.controls[key].markAsDirty();
+        this.formularioProducto.controls[key].markAsTouched();
+      });
+
+      // Mostrar mensaje de error con SweetAlert2
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor, completa correctamente todos los campos.',
+      });
+
       return;
     }
 
+    if (this.formularioProducto.value.imagen === 'https://www.cardboardboxshop.com.au/wp-content/uploads/2020/10/Archive-Carton.jpg') {
+      Swal.fire({
+        title: 'Imagen por defecto',
+        text: '¿Está seguro que quiere utilizar la imagen por defecto?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.guardarProductoImagenPorDefecto();
+        }
+      });
+    } else {
+      this.guardarProductoImagenPorDefecto();
+    }
+  }
+
+  guardarProductoImagenPorDefecto(){
     this.producto.id = this.formularioProducto.value.id;
     this.producto.nombre = this.formularioProducto.value.nombre;
     this.producto.imagen = this.formularioProducto.value.imagen;

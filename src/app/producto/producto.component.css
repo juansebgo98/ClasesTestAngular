@@ -9,3 +9,8 @@ body {
   margin: auto;
 }
 
+
+input.form-control.ng-invalid.ng-touched,
+input.form-control.ng-dirty.ng-invalid {
+  border-color: red;
+}
