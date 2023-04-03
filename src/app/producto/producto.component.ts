@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 
 import { Producto } from '../models/Producto';
 import { ProductoService } from '../models/Services/producto.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-producto',
@@ -24,7 +25,8 @@ export class ProductoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -109,6 +111,11 @@ export class ProductoComponent implements OnInit {
         () => this.router.navigate(['/'])
       );
     }
+  }
+
+  cancelar() {
+    this.modalService.dismissAll();
+    this.router.navigate(['/'])
   }
   
 }

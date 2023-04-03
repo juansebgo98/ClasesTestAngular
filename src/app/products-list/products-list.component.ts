@@ -7,6 +7,9 @@ import { ProductoService } from '../models/Services/producto.service';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms'; 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProductoComponent } from '../producto/producto.component';
+
 
 @Component({
   selector: 'app-products-list',
@@ -20,7 +23,7 @@ export class ProductListComponent implements OnInit {
   filteredProducts: Producto[];
   searchTerm: string = "";
   
-  constructor(private productoService: ProductoService, private datePipe: DatePipe) { }
+  constructor(private productoService: ProductoService, private datePipe: DatePipe, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.obtenerProductos();
@@ -34,15 +37,33 @@ export class ProductListComponent implements OnInit {
   }
 
   obtenerProductos(): void {
-    this.productoService.getProductos()
-      .subscribe(productos => {
-        productos.forEach(producto => {
-          producto.fechaMasProxima = new Date(Math.min(...producto.inventarios.map(i => new Date(i.fechaCaducidad).getTime()).filter(t => !isNaN(t))));
-        });
-        this.productos = productos.sort((a, b) => a.fechaMasProxima.getTime() - b.fechaMasProxima.getTime());
-        this.filteredProducts = this.productos;
+    this.productoService.getProductos().subscribe(productos => {
+      productos.forEach(producto => {
+        producto.fechaMasProxima = new Date(Math.min(
+          ...producto.inventarios
+            .filter(i => i.fechaCaducidad) // solo considerar inventarios con fecha de caducidad definida
+            .map(i => new Date(i.fechaCaducidad).getTime())
+            .filter(t => !isNaN(t))
+        ));
       });
+      // Ordenar primero por fecha más próxima, y luego por aquellos sin fecha de caducidad
+      this.productos = productos.sort((a, b) => {
+        const aFecha = a.fechaMasProxima.getTime();
+        const bFecha = b.fechaMasProxima.getTime();
+        if (isNaN(aFecha) && isNaN(bFecha)) {
+          return a.nombre.localeCompare(b.nombre);
+        } else if (isNaN(aFecha)) {
+          return 1;
+        } else if (isNaN(bFecha)) {
+          return -1;
+        } else {
+          return aFecha - bFecha;
+        }
+      });
+      this.filteredProducts = this.productos;
+    });
   }
+  
 
 
   diasParaCaducar(fechaCaducidad: Date): number {
@@ -81,4 +102,9 @@ export class ProductListComponent implements OnInit {
       }
     });
   }
+
+  openProductoNuevoModal() {
+    const modalRef = this.modalService.open(ProductoComponent, { centered: true });
+  }
+  
 }

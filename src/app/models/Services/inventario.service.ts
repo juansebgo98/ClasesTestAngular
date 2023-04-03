@@ -44,7 +44,7 @@ export class InventarioService {
         catchError(e=>{
             this.router.navigate(['/inventario']);
             console.error(e.error.mensaje);
-            Swal.fire('Error al obtener inventario',e.error.mensaje,'error');
+            Swal.fire('Error al obtener inventario producto: '+idProducto+ ' almacenamiento: '+id ,e.error.mensaje,'error');
             return throwError(e)
           })
     );

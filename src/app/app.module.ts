@@ -29,6 +29,9 @@ import { MatInputModule } from '@angular/material/input';
 
 import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 
 
@@ -68,7 +71,8 @@ const routes: Routes = [
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    NgxScannerQrcodeModule
+    NgxScannerQrcodeModule,
+    NgbModule
   ],
   providers: [
     AlmacenamientoService,
