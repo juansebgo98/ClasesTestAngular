@@ -52,4 +52,12 @@ export class ProductListComponent implements OnInit {
     return Math.ceil(diferencia / MILISEGUNDOS_POR_DIA);
   }
 
+  eliminarProducto(id: number) {
+    if (confirm('¿Estás seguro que deseas eliminar este producto?')) {
+      this.productoService.deleteProducto(id).subscribe(() => {
+        // Remove product from filtered list
+        this.filteredProducts = this.filteredProducts.filter(producto => producto.id !== id);
+      });
+    }
+  }
 }
