@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
+RUN npm install @ng-bootstrap/ng-bootstrap
+
 # Install Angular CLI and project dependencies
 RUN npm install -g npm@9.6.3 && npm install -g @angular/cli@15.2.5 && npm install
 
