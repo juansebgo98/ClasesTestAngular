@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install project dependencies
 RUN npm install
 
+# Install Angular CLI
+RUN npm install -g @angular/cli
+
 # Copy the rest of the application files to the container
 COPY . .
 
@@ -17,4 +20,4 @@ COPY . .
 EXPOSE 4200
 
 # Start the application
-RUN ng serve --port 8082 --host $(hostname -i)
+CMD ["ng", "serve", "--port", "8082", "--host", "0.0.0.0", "--disable-host-check"]
