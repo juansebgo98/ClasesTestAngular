@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 4200
 
 # Start the application
-RUN ng serve --port 8082 --host $(hostname -i)
+CMD ["ng", "serve"]
