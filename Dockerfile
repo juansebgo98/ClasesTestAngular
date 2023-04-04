@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 4200
 
 # Start the application
-CMD ["ng", "serve"]
+CMD ["npm", "start", "--host", "0.0.0.0"]
