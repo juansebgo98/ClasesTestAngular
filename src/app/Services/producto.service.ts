@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, pipe, throwError } from 'rxjs';
-import { Producto } from '../Producto';
+import { Producto } from '../models/Producto';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Constants } from 'src/app/utils/constant';

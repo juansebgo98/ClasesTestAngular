@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { Almacenamiento } from '../Almacenamiento';
+import { Almacenamiento } from '../models/Almacenamiento';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Constants } from 'src/app/utils/constant';

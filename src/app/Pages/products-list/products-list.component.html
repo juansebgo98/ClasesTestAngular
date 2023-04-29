@@ -22,7 +22,7 @@
         </div>
         <div class="card-footer d-flex justify-content-between">
           <a [routerLink]="['/inventario', producto.id]" class="btn btn-primary mr-auto">Inventario</a>
-          <a [routerLink]="['/producto', producto.id]" class="btn btn-secondary mx-auto" (click)="abrirModalProducto(producto.id)">Detalles</a>
+          <a [routerLink]="['/producto', producto.id]" class="btn btn-secondary mx-auto">Detalles</a>
           <button class="btn btn-danger ml-auto" (click)="eliminarProducto(producto.id)">Eliminar</button>
         </div>
       </div>

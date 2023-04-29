@@ -1,12 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Inventario } from '../models/Inventario';
-import { Producto } from '../models/Producto';
-import { InventarioService } from '../models/Services/inventario.service';
-import { ProductoService } from '../models/Services/producto.service';
+import { Producto } from '../../models/Producto';
+import { ProductoService } from '../../Services/producto.service';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
-import { FormsModule } from '@angular/forms'; 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductoComponent } from '../producto/producto.component';
 

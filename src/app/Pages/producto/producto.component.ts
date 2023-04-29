@@ -5,8 +5,8 @@ import { BarcodeFormat } from '@zxing/library';
 import Swal from 'sweetalert2';
 
 
-import { Producto } from '../models/Producto';
-import { ProductoService } from '../models/Services/producto.service';
+import { Producto } from 'src/app/models/Producto'; 
+import { ProductoService } from 'src/app/Services/producto.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

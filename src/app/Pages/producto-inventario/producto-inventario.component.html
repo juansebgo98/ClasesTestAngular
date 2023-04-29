@@ -1,5 +1,5 @@
 <h2>Detalle de {{producto?.nombre}}</h2>
-
+<a [routerLink]="['/crearInventario', idProducto]" class="btn btn-success">Nuevo inventario</a>
 <div *ngFor="let almacenamiento of almacenamientos">
   <div class="row mb-4"></div>
   <h3>Inventario de {{almacenamiento.nombre}}</h3>

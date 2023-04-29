@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Almacenamiento } from '../models/Almacenamiento';
-import { Inventario } from '../models/Inventario';
-import { Producto } from '../models/Producto';
-import { AlmacenamientoService } from '../models/Services/almacenamiento.service';
-import { InventarioService } from '../models/Services/inventario.service';
+import { Almacenamiento } from 'src/app/models/Almacenamiento';
+import { Inventario } from 'src/app/models/Inventario';
+import { Producto } from 'src/app/models/Producto';
+import { AlmacenamientoService } from 'src/app/Services/almacenamiento.service';
+import { InventarioService } from 'src/app/Services/inventario.service'; 
 import { DatePipe } from '@angular/common';
-import { ProductoService } from '../models/Services/producto.service';
+import { ProductoService } from 'src/app/Services/producto.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { ProductoService } from '../models/Services/producto.service';
   styleUrls: ['./producto-inventario.component.css'],
   providers: [DatePipe]
 })
-export class InventoryComponent implements OnInit {
+export class ProductoInventoryComponent implements OnInit {
 
   displayedColumns: string[] = ['cantidad', 'fechaCaducidad', 'acciones'];
 
@@ -23,7 +24,8 @@ export class InventoryComponent implements OnInit {
   producto: Producto;
   almacenamientos: Almacenamiento[];
 
-  constructor(private productoService: ProductoService, private datePipe: DatePipe ,private inventarioService: InventarioService,private almacenamientoService: AlmacenamientoService, private activatedRoute: ActivatedRoute) { }
+  constructor(private productoService: ProductoService, private datePipe: DatePipe ,private inventarioService: InventarioService,
+    private almacenamientoService: AlmacenamientoService, private activatedRoute: ActivatedRoute,private modalService: NgbModal) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -73,11 +75,15 @@ export class InventoryComponent implements OnInit {
     }
   }
 
-  diasParaCaducar(fechaCaducidad: Date): number {
-    const MILISEGUNDOS_POR_DIA = 1000 * 60 * 60 * 24;
-    const hoy = new Date();
-    const fechaCad = new Date(fechaCaducidad);
-    const diferencia = fechaCad.getTime() - hoy.getTime();
-    return Math.ceil(diferencia / MILISEGUNDOS_POR_DIA);
-}
+    diasParaCaducar(fechaCaducidad: Date): number {
+      const MILISEGUNDOS_POR_DIA = 1000 * 60 * 60 * 24;
+      const hoy = new Date();
+      const fechaCad = new Date(fechaCaducidad);
+      const diferencia = fechaCad.getTime() - hoy.getTime();
+      return Math.ceil(diferencia / MILISEGUNDOS_POR_DIA);
+  }
+
+  openProductoNuevoModal(producto:Producto) {
+
+  }
 }
