@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="search-container">
         <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm" (keyup)="filterProducts()">
-        <button type="button" class="btn btn-success" (click)="todo()">Nuevo producto</button>
+        <a [routerLink]="['/producto']" class="btn btn-success">Nuevo producto</a>
       </div>
     </div>
   </div>
