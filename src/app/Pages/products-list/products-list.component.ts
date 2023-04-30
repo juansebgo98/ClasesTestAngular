@@ -1,12 +1,10 @@
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Producto } from '../../models/Producto';
-import { ProductoService } from '../../Services/producto.service';
 import { DatePipe } from '@angular/common';
-import Swal from 'sweetalert2';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProductoComponent } from '../producto/producto.component';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
+import Swal from 'sweetalert2';
+import { ProductoService } from '../../Services/producto.service';
+import { Producto } from '../../models/Producto';
 
 
 @Component({

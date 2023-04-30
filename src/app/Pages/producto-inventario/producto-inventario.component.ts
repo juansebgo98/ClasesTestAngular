@@ -1,13 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AlmacenamientoService } from 'src/app/Services/almacenamiento.service';
+import { InventarioService } from 'src/app/Services/inventario.service';
+import { ProductoService } from 'src/app/Services/producto.service';
 import { Almacenamiento } from 'src/app/models/Almacenamiento';
 import { Inventario } from 'src/app/models/Inventario';
 import { Producto } from 'src/app/models/Producto';
-import { AlmacenamientoService } from 'src/app/Services/almacenamiento.service';
-import { InventarioService } from 'src/app/Services/inventario.service'; 
-import { DatePipe } from '@angular/common';
-import { ProductoService } from 'src/app/Services/producto.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute } from '@angular/router';
 
 
 @Component({

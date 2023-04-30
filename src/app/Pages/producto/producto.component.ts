@@ -3,11 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 
-import { Producto } from 'src/app/models/Producto';
-import { ProductoService } from 'src/app/Services/producto.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
+import { ProductoService } from 'src/app/Services/producto.service';
+import { Producto } from 'src/app/models/Producto';
 
 @Component({
   selector: 'app-producto',

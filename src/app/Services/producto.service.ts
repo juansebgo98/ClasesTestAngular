@@ -1,10 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, Observable, pipe, throwError } from 'rxjs';
-import { Producto } from '../models/Producto';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Constants } from 'src/app/utils/constant';
+import Swal from 'sweetalert2';
+import { Producto } from '../models/Producto';
 
 @Injectable({
   providedIn: 'root'
