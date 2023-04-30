@@ -5,10 +5,15 @@ body {
 }
 
 .mat-card {
-  max-width: 400px; /* ajusta el ancho del card según tus necesidades */
+  max-width: 1000%; /* ajusta el ancho del card según tus necesidades */
   margin: auto;
 }
 
+.card-lg {
+  width: 70%;
+  height: 100%;
+  padding: 20px;
+}
 
 input.form-control.ng-invalid.ng-touched,
 input.form-control.ng-dirty.ng-invalid {
