@@ -20,7 +20,7 @@
         </div>
         <!-- For camera -->
         <div *ngIf="showQRScanner">
-          <ngx-scanner-qrcode #action="scanner" (event)="onEvent($event);action.stop();"
+          <ngx-scanner-qrcode #action="scanner" (event)="escaneado($event);action.stop();"
             class="mt-3"></ngx-scanner-qrcode>
           <!-- Loading -->
           <p *ngIf="action.isLoading">⌛ Loading...</p>
