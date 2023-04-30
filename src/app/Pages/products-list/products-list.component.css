@@ -31,12 +31,13 @@
 .white-text {
   color: #ffffff;
 }
-
 .search-container {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 20px;
+  
 }
 
 input[type="text"] {

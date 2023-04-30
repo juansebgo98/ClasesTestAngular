@@ -1,11 +1,12 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Producto } from '../../models/Producto';
 import { ProductoService } from '../../Services/producto.service';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductoComponent } from '../producto/producto.component';
+import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 
 
 @Component({
@@ -16,9 +17,13 @@ import { ProductoComponent } from '../producto/producto.component';
 })
 export class ProductListComponent implements OnInit {
 
+  @ViewChild('action') action: any;
+  @ViewChild('divScanner') divScanner: ElementRef;
+  
   productos: Producto[];
   filteredProducts: Producto[];
   searchTerm: string = "";
+  showQRScanner=false;
 
   constructor(private productoService: ProductoService, private datePipe: DatePipe) { }
 
@@ -100,7 +105,17 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  todo() {
+  activarCamaraBuscar() {
+    this.showQRScanner = true;
+    this.action.start();
+  }
 
+  public onEvent(e: ScannerQRCodeResult[]): void {
+    const id = parseInt(e[0].value, 10);
+    this.productoService.getProducto(id).subscribe(producto =>{
+      this.searchTerm = producto.nombre;
+      this.filterProducts();
+    })
+    this.showQRScanner = false;
   }
 }

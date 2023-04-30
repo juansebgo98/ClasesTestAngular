@@ -123,21 +123,7 @@ export class ProductoComponent implements OnInit {
 
   mostrarQRScanner() {
     this.showQRScanner = true;
-  }
-
-  activar() {
     this.action.start();
-  }
-
-  toggleQRScanner() {
-    if (this.action) {
-      this.showQRScanner = !this.showQRScanner;
-      this.showQRScanner ? this.action.start() : this.action.stop();
-    }
-  }
-
-  todo() {
-
   }
 
 }
