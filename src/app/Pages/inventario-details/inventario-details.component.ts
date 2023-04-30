@@ -18,8 +18,8 @@ export class InventarioDetailsComponent implements OnInit {
   inventario: Inventario;
   inventarioForm: FormGroup;
   almacenamientos: Almacenamiento[];
-  selectedValue: Almacenamiento;  
-  
+  selectedValue: Almacenamiento;
+
 
   constructor(
     private fb: FormBuilder,
@@ -30,7 +30,7 @@ export class InventarioDetailsComponent implements OnInit {
     private _adapter: DateAdapter<any>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._locale = 'es';
@@ -45,22 +45,22 @@ export class InventarioDetailsComponent implements OnInit {
     this.inventarioForm = this.fb.group({
       cantidad: ['', Validators.required],
       almacenamiento: ['', Validators.required],
-      precio:[''],
+      precio: [''],
       fechaCaducidad: ['', Validators.required]
     });
     this.almacenamientoService.getAlmacenamientos().subscribe(almacenamientos => {
       this.almacenamientos = almacenamientos;
     });
   }
-  
+
   crearInventario() {
     // Obtener los valores del formulario
     const valoresFormulario = this.inventarioForm.value;
-  
+
     // Crear una nueva instancia de Inventario con los valores del formulario
     const nuevoInventario = new Inventario();
     nuevoInventario.producto = this.producto;
-    nuevoInventario.almacenamiento =valoresFormulario.almacenamiento;
+    nuevoInventario.almacenamiento = valoresFormulario.almacenamiento;
     nuevoInventario.cantidad = valoresFormulario.cantidad;
     let fecha = new Date(valoresFormulario.fechaCaducidad);
     fecha.setHours(12);
@@ -72,5 +72,5 @@ export class InventarioDetailsComponent implements OnInit {
       this.router.navigate([`/inventario/${this.producto.id}`]);
     });
   }
-  
+
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Almacenamiento } from 'src/app/models/Almacenamiento';
 import { Inventario } from 'src/app/models/Inventario';
 import { Producto } from 'src/app/models/Producto';
@@ -8,6 +7,7 @@ import { InventarioService } from 'src/app/Services/inventario.service';
 import { DatePipe } from '@angular/common';
 import { ProductoService } from 'src/app/Services/producto.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class ProductoInventoryComponent implements OnInit {
   almacenamientos: Almacenamiento[];
 
   constructor(private productoService: ProductoService, private datePipe: DatePipe ,private inventarioService: InventarioService,
-    private almacenamientoService: AlmacenamientoService, private activatedRoute: ActivatedRoute,private modalService: NgbModal) { }
+    private almacenamientoService: AlmacenamientoService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {

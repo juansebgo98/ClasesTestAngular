@@ -1,50 +1,49 @@
 /* Estilo para el título del formulario */
 .form-title {
-    font-size: 28px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilo para los campos de entrada */
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  
-  /* Estilo para el botón de guardar */
-  button[type="submit"] {
-    width: 100%;
-    margin-top: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
 
-  }
-  
-  /* Estilo para el contenedor del botón de guardar */
-  .button-container {
-    display: flex;
-    justify-content: center;
-  }
-  
-  /* Estilo para la etiqueta del selector de almacenamiento */
-  mat-label {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  /* Estilo para la opción seleccionada del selector de almacenamiento */
-  mat-option.mat-selected:not(:last-child) {
-    border-bottom: 1px solid rgba(0,0,0,.12);
-  }
-  
-  /* Estilo para las opciones del selector de almacenamiento */
-  mat-option {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  /* Estilo para el mensaje de error */
-  mat-error {
-    font-size: 14px;
-    color: #f44336;
-    margin-top: 4px;
-  }
-  
+/* Estilo para los campos de entrada */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Estilo para el botón de guardar */
+button[type="submit"] {
+  width: 100%;
+  margin-top: 20px;
+
+}
+
+/* Estilo para el contenedor del botón de guardar */
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilo para la etiqueta del selector de almacenamiento */
+mat-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Estilo para la opción seleccionada del selector de almacenamiento */
+mat-option.mat-selected:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+
+/* Estilo para las opciones del selector de almacenamiento */
+mat-option {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Estilo para el mensaje de error */
+mat-error {
+  font-size: 14px;
+  color: #f44336;
+  margin-top: 4px;
+}

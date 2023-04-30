@@ -8,10 +8,12 @@
 
 /* Fondo del encabezado */
 .navbar {
-    background-color: #bfefff; /* Cambia esto por el color celeste que desees */
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.3); /* Agrega un sombreado */
-  }
-  
+  background-color: #bfefff;
+  /* Cambia esto por el color celeste que desees */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  /* Agrega un sombreado */
+}
+
 
 /* Espacio entre elementos del menú */
 .navbar-nav li {
@@ -20,11 +22,12 @@
 
 /* Color del texto cuando se pasa el cursor por encima */
 .navbar-nav li a:hover {
-  color: #007bff; /* Cambia esto por el color que desees */
+  color: #007bff;
+  /* Cambia esto por el color que desees */
 }
 
 /* Color del texto cuando el enlace está activo */
 .navbar-nav li.active a {
-  color: #007bff; /* Cambia esto por el color que desees */
+  color: #007bff;
+  /* Cambia esto por el color que desees */
 }
-  

@@ -7,9 +7,9 @@ export class Almacenamiento {
   inventarios: Inventario[];
 
   constructor(id?: number, nombre?: string, lugar?: string, inventarios?: Inventario[]) {
-      this.id = id;
-      this.nombre = nombre;
-      this.lugar = lugar;
-      this.inventarios = inventarios;
+    this.id = id;
+    this.nombre = nombre;
+    this.lugar = lugar;
+    this.inventarios = inventarios;
   }
 }

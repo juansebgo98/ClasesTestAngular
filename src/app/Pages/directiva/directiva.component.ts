@@ -6,15 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./directiva.component.css']
 })
 export class DirectivaComponent {
-  listaCurso:string[] =['TypeScript', 'JavaScript', 'Java SE','C#'];
-  
-  habilitar:boolean = true;
-  constructor(){
+  listaCurso: string[] = ['TypeScript', 'JavaScript', 'Java SE', 'C#'];
+
+  habilitar: boolean = true;
+  constructor() {
 
   }
 
-  setHabilitar():void{
-    this.habilitar=!this.habilitar;
+  setHabilitar(): void {
+    this.habilitar = !this.habilitar;
   }
 
 }

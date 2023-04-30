@@ -5,7 +5,8 @@ body {
 }
 
 .mat-card {
-  max-width: 1000%; /* ajusta el ancho del card según tus necesidades */
+  max-width: 1000%;
+  /* ajusta el ancho del card según tus necesidades */
   margin: auto;
 }
 
@@ -18,4 +19,22 @@ body {
 input.form-control.ng-invalid.ng-touched,
 input.form-control.ng-dirty.ng-invalid {
   border-color: red;
+}
+
+button[mat-fab] {
+  margin-left: 10px;
+}
+
+button[mat-fab] mat-icon {
+  margin: 0;
+}
+
+button[mat-fab]:focus {
+  outline: none;
+}
+
+button[mat-fab]:hover {
+  background-color: #2196f3;
+  color: white;
+  cursor: pointer;
 }

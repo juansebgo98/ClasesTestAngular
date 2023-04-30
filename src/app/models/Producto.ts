@@ -15,8 +15,8 @@ export class Producto {
    * @param inventarios 
    */
   constructor(id?: number, nombre?: string, cantidad?: number, inventarios?: Inventario[]) {
-      this.id = id;
-      this.nombre = nombre;
-      this.inventarios = inventarios;
+    this.id = id;
+    this.nombre = nombre;
+    this.inventarios = inventarios;
   }
 }

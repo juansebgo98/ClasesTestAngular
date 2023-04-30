@@ -1,13 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@fortawesome/fontawesome-free/css/all.css';
-html{
-    position:relative;
-    min-height: 100%;
+
+html {
+  position: relative;
+  min-height: 100%;
 }
 
-body{
-    margin-bottom: 60px;
+body {
+  margin-bottom: 60px;
 }
+
 .card {
   margin-bottom: 20px;
   border: 1px solid #ddd;

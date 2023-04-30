@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { BarcodeFormat } from '@zxing/library';
 import Swal from 'sweetalert2';
 
 
-import { Producto } from 'src/app/models/Producto'; 
+import { Producto } from 'src/app/models/Producto';
 import { ProductoService } from 'src/app/Services/producto.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 
 @Component({
   selector: 'app-producto',
@@ -19,14 +19,17 @@ export class ProductoComponent implements OnInit {
   formularioProducto: FormGroup;
   submitted = false;
   idActual: Number;
-  allowedFormats = [ BarcodeFormat.QR_CODE, BarcodeFormat.EAN_13, BarcodeFormat.CODE_128, BarcodeFormat.DATA_MATRIX /*, ...*/ ];
+  @ViewChild('id') id: ElementRef;
+  showQRScanner = false;
+  @ViewChild('action') action: any;
+  @ViewChild('divScanner') divScanner: ElementRef;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private productoService: ProductoService,
-    private modalService: NgbModal
+    private productoService: ProductoService
   ) { }
 
   ngOnInit(): void {
@@ -97,7 +100,7 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-  guardarProductoImagenPorDefecto(){
+  guardarProductoImagenPorDefecto() {
     this.producto.id = this.formularioProducto.value.id;
     this.producto.nombre = this.formularioProducto.value.nombre;
     this.producto.imagen = this.formularioProducto.value.imagen;
@@ -113,9 +116,28 @@ export class ProductoComponent implements OnInit {
     }
   }
 
-  cancelar() {
-    this.modalService.dismissAll();
-    this.router.navigate(['/'])
+  public onEvent(e: ScannerQRCodeResult[]): void {
+    this.id.nativeElement.value = e[0].value;
+    this.showQRScanner = false;
   }
-  
+
+  mostrarQRScanner() {
+    this.showQRScanner = true;
+  }
+
+  activar() {
+    this.action.start();
+  }
+
+  toggleQRScanner() {
+    if (this.action) {
+      this.showQRScanner = !this.showQRScanner;
+      this.showQRScanner ? this.action.start() : this.action.stop();
+    }
+  }
+
+  todo() {
+
+  }
+
 }

@@ -4,22 +4,29 @@
       <h1>{{ producto.id !== undefined ? 'Editar' : 'Nuevo' }} Producto</h1>
     </div>
     <div class="card-body">
-      <div class="form-group" style="background: url({{formularioProducto.value.imagen}}) no-repeat center; background-size: contain; height: 400px;"></div>
-      <form [formGroup]="formularioProducto" (ngSubmit)="guardarProducto()">
+      <div class="form-group"
+        style="background: url({{formularioProducto.value.imagen}}) no-repeat center; background-size: contain; height: 400px;">
+      </div>
+      <form id="formulario" [formGroup]="formularioProducto" (ngSubmit)="guardarProducto()">
         <div class="form-group">
-          <label>ID:</label>
-          <input type="number" class="form-control" formControlName="id">
-          <div *ngIf="f['id'].invalid && (f['id'].dirty || f['id'].touched)">
-            <div *ngIf="f['id'].errors.required">
-              El ID es obligatorio.
-            </div>
-            <div *ngIf="f['id'].errors.pattern">
-              El ID debe ser un valor numérico.
-            </div>
+          <label for="id" class="mr-3">ID:</label>
+          <div class="d-flex align-items-center">
+            <input #id type="number" class="form-control mr-3" formControlName="id">
+            <button type="button" color="primary" mat-fab aria-label="Escanear codigo"
+              (click)="mostrarQRScanner();activar()">
+              <mat-icon>camera</mat-icon>
+            </button>
           </div>
         </div>
+        <!-- For camera -->
+        <div *ngIf="showQRScanner">
+          <ngx-scanner-qrcode #action="scanner" (event)="onEvent($event);action.stop();"
+            class="mt-3"></ngx-scanner-qrcode>
+          <!-- Loading -->
+          <p *ngIf="action.isLoading">⌛ Loading...</p>
+        </div>
         <div class="form-group">
-          <label>Nombre:</label>
+          <label for="nombre">Nombre:</label>
           <input type="text" class="form-control" formControlName="nombre">
           <div *ngIf="f['nombre'].invalid && (f['nombre'].dirty || f['nombre'].touched)">
             <div *ngIf="f['nombre'].errors.required">
@@ -28,7 +35,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Imagen:</label>
+          <label for="imagen">Imagen:</label>
           <input type="text" class="form-control" formControlName="imagen">
           <div *ngIf="f['imagen'].invalid && (f['imagen'].dirty || f['imagen'].touched)">
             <div *ngIf="f['imagen'].errors.required">
@@ -37,7 +44,7 @@
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
-        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+        <button type="button" class="btn btn-secondary" (click)="todo()">Cancelar</button>
       </form>
     </div>
   </mat-card>

@@ -1,73 +1,72 @@
 .card {
-    border-radius: 0;
-  }
-  
-  .card-title-highlight {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  .card img {
-    object-fit: cover;
-  }
-  
-  .card .card-body {
-    background-color: #fff;
-    color: #333;
-  }
-  
-  .card .card-footer {
-    background-color: #333;
-  }
-  
-  .card .card-footer button {
-    color: #fff;
-  }
-  
-  
-  .white-text {
-    color: #ffffff;
-  }
+  border-radius: 0;
+}
 
-  .search-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
-  input[type="text"] {
-    width: 60%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: none;
-    border-bottom: 2px solid #007bff;
-    font-size: 16px;
-    background-color: #f8f8f8;
-    border-radius: 4px;
-    outline: none;
-  }
-  
-  input[type="text"]:focus {
-    border-bottom: 2px solid #0056b3;
-  }
+.card-title-highlight {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1rem;
+}
 
-  .card-height {
-    height: 100%;
-  }
+.card img {
+  object-fit: cover;
+}
 
-  .search-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .btn-create-product {
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
+.card .card-body {
+  background-color: #fff;
+  color: #333;
+}
+
+.card .card-footer {
+  background-color: #333;
+}
+
+.card .card-footer button {
+  color: #fff;
+}
+
+
+.white-text {
+  color: #ffffff;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 60%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid #007bff;
+  font-size: 16px;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-bottom: 2px solid #0056b3;
+}
+
+.card-height {
+  height: 100%;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.btn-create-product {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}

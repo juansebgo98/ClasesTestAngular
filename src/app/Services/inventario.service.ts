@@ -30,23 +30,23 @@ export class InventarioService {
   getInventario(id: number): Observable<Inventario> {
     const url = `${Constants.API_URL_INVENTARIO}/${id}`;
     return this.http.get<Inventario>(url).pipe(
-        catchError(e=>{
-            this.router.navigate(['/inventario']);
-            console.error(e.error.mensaje);
-            Swal.fire('Error al obtener',e.error.mensaje,'error');
-            return throwError(e)
-          })
+      catchError(e => {
+        this.router.navigate(['/inventario']);
+        console.error(e.error.mensaje);
+        Swal.fire('Error al obtener', e.error.mensaje, 'error');
+        return throwError(e)
+      })
     );
   }
   getInventarioProductoAlmacenamiento(idProducto: number, id: number) {
     const url = `${Constants.API_URL_INVENTARIO}/producto/${idProducto}/almacenamiento/${id}`;
     return this.http.get<Inventario[]>(url).pipe(
-        catchError(e=>{
-            this.router.navigate(['/inventario']);
-            console.error(e.error.mensaje);
-            Swal.fire('Error al obtener inventario producto: '+idProducto+ ' almacenamiento: '+id ,e.error.mensaje,'error');
-            return throwError(e)
-          })
+      catchError(e => {
+        this.router.navigate(['/inventario']);
+        console.error(e.error.mensaje);
+        Swal.fire('Error al obtener inventario producto: ' + idProducto + ' almacenamiento: ' + id, e.error.mensaje, 'error');
+        return throwError(e)
+      })
     );
   }
   /**
@@ -57,12 +57,12 @@ export class InventarioService {
   getInventarioProducto(id: number): Observable<Inventario[]> {
     const url = `${Constants.API_URL_INVENTARIO}/producto/${id}`;
     return this.http.get<Inventario[]>(url).pipe(
-        catchError(e=>{
-            this.router.navigate(['/inventario']);
-            console.error(e.error.mensaje);
-            Swal.fire('Error al obtener inventario',e.error.mensaje,'error');
-            return throwError(e)
-          })
+      catchError(e => {
+        this.router.navigate(['/inventario']);
+        console.error(e.error.mensaje);
+        Swal.fire('Error al obtener inventario', e.error.mensaje, 'error');
+        return throwError(e)
+      })
     );
   }
 
@@ -73,16 +73,16 @@ export class InventarioService {
    */
   crearInventario(inventario: Inventario): Observable<Inventario> {
     return this.http.post<Inventario>(Constants.API_URL_INVENTARIO, inventario).pipe(
-        map((response: any) => response.producto as Inventario),
-        catchError(e=>{
-          if(e.status == 400){
-            return throwError(e);
-          }
-          console.error(e.error.mensaje);
-          Swal.fire(e.error.mensaje, e.error.error,'error');
+      map((response: any) => response.producto as Inventario),
+      catchError(e => {
+        if (e.status == 400) {
           return throwError(e);
-        })
-      );
+        }
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   /**
@@ -92,16 +92,16 @@ export class InventarioService {
    */
   updateInventario(inventario: Inventario): Observable<Inventario> {
     const url = `${Constants.API_URL_INVENTARIO}/${inventario.id}`;
-    return this.http.put<Inventario>(url, inventario, {headers: Constants.httpHeaders}).pipe(
-        catchError(e=>{
-          if(e.status == 400){
-            return throwError(e);
-          }
-          console.error(e.error.mensaje);
-          Swal.fire(e.error.mensaje, e.error.error,'error');
+    return this.http.put<Inventario>(url, inventario, { headers: Constants.httpHeaders }).pipe(
+      catchError(e => {
+        if (e.status == 400) {
           return throwError(e);
-        })
-      );
+        }
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   /**
@@ -111,16 +111,16 @@ export class InventarioService {
    */
   aumentarInventario(inventario: Inventario, cantidad: number): Observable<Inventario> {
     const url = `${Constants.API_URL_INVENTARIO}/${inventario.id}/aumentar/${cantidad}`;
-    return this.http.put<Inventario>(url, inventario, {headers: Constants.httpHeaders}).pipe(
-        catchError(e=>{
-          if(e.status == 400){
-            return throwError(e);
-          }
-          console.error(e.error.mensaje);
-          Swal.fire(e.error.mensaje, e.error.error,'error');
+    return this.http.put<Inventario>(url, inventario, { headers: Constants.httpHeaders }).pipe(
+      catchError(e => {
+        if (e.status == 400) {
           return throwError(e);
-        })
-      );
+        }
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   /**
@@ -130,16 +130,16 @@ export class InventarioService {
    */
   reduceInventario(inventario: Inventario, cantidad: number): Observable<Inventario> {
     const url = `${Constants.API_URL_INVENTARIO}/${inventario.id}/reducir/${cantidad}`;
-    return this.http.put<Inventario>(url, inventario, {headers: Constants.httpHeaders}).pipe(
-        catchError(e=>{
-          if(e.status == 400){
-            return throwError(e);
-          }
-          console.error(e.error.mensaje);
-          Swal.fire(e.error.mensaje, e.error.error,'error');
+    return this.http.put<Inventario>(url, inventario, { headers: Constants.httpHeaders }).pipe(
+      catchError(e => {
+        if (e.status == 400) {
           return throwError(e);
-        })
-      );
+        }
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
   }
 
   /**
@@ -149,12 +149,12 @@ export class InventarioService {
    */
   deleteInventario(id: number): Observable<{}> {
     const url = `${Constants.API_URL_INVENTARIO}/${id}`;
-    return this.http.delete(url, {headers: Constants.httpHeaders}).pipe(
-        catchError(e=>{
-          console.error(e.error.mensaje);
-          Swal.fire(e.error.mensaje, e.error.error,'error');
-          return throwError(e);
-        })
-      );
+    return this.http.delete(url, { headers: Constants.httpHeaders }).pipe(
+      catchError(e => {
+        console.error(e.error.mensaje);
+        Swal.fire(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
   }
 }

@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="search-container">
         <input type="text" placeholder="Buscar productos..." [(ngModel)]="searchTerm" (keyup)="filterProducts()">
-        <button type="button" class="btn btn-success" (click)="openProductoNuevoModal()">Nuevo producto</button>
+        <button type="button" class="btn btn-success" (click)="todo()">Nuevo producto</button>
       </div>
     </div>
   </div>
@@ -12,11 +12,11 @@
     <div class="col-md-4 mb-4" *ngFor="let producto of filteredProducts">
       <div class="card card-height shadow">
         <img class="card-img-top" [src]="producto.imagen" alt="Card image cap">
-        <div class="card-body">
+        <div class="card-sbody">
           <h5 class="card-title card-title-highlight">{{producto.nombre}}</h5>
           <div *ngIf="producto.fechaMasProxima != 'Invalid Date'">
-            <p class="card-text"  [style.color]="(diasParaCaducar(producto.fechaMasProxima) < 5) ? 'red' : 'black'">
-                Fecha de caducidad: {{ datePipe.transform(producto.fechaMasProxima, 'dd-MM-yy') }}
+            <p class="card-text" [style.color]="(diasParaCaducar(producto.fechaMasProxima) < 5) ? 'red' : 'black'">
+              Fecha de caducidad: {{ datePipe.transform(producto.fechaMasProxima, 'dd-MM-yy') }}
             </p>
           </div>
         </div>
@@ -29,4 +29,3 @@
     </div>
   </div>
 </div>
-  

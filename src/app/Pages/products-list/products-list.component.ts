@@ -19,12 +19,12 @@ export class ProductListComponent implements OnInit {
   productos: Producto[];
   filteredProducts: Producto[];
   searchTerm: string = "";
-  
-  constructor(private productoService: ProductoService, private datePipe: DatePipe, private modalService: NgbModal) { }
+
+  constructor(private productoService: ProductoService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.obtenerProductos();
-    
+
   }
 
   filterProducts() {
@@ -60,7 +60,7 @@ export class ProductListComponent implements OnInit {
       this.filteredProducts = this.productos;
     });
   }
-  
+
 
 
   diasParaCaducar(fechaCaducidad: Date): number {
@@ -100,8 +100,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  openProductoNuevoModal() {
-    const modalRef = this.modalService.open(ProductoComponent, { centered: true });
+  todo() {
+
   }
-  
 }

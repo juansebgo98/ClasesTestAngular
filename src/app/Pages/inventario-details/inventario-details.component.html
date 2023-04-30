@@ -1,38 +1,38 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 <form [formGroup]="inventarioForm" (ngSubmit)="crearInventario()">
-    <h2>Crear inventario para {{ producto.nombre }}</h2>
-    
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Almacenamiento</mat-label>
-        <mat-select formControlName="almacenamiento">
-          <mat-option *ngFor="let almacenamiento of almacenamientos" [value]="almacenamiento">
-            {{ almacenamiento.nombre }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Cantidad</mat-label>
-        <input type="number" formControlName="cantidad" matInput>
-      </mat-form-field>
-    </div>
+  <h2>Crear inventario para {{ producto.nombre }}</h2>
 
-    <mat-form-field appearance="fill" floatLabel="always">
-        <mat-label>Precio</mat-label>
-        <input formControlName="precio" matInput type="number" class="example-right-align" placeholder="0">
-        <span matTextSuffix>€</span>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Almacenamiento</mat-label>
+      <mat-select formControlName="almacenamiento">
+        <mat-option *ngFor="let almacenamiento of almacenamientos" [value]="almacenamiento">
+          {{ almacenamiento.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+  </div>
 
-    <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Fecha de caducidad" formControlName="fechaCaducidad">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>      
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Cantidad</mat-label>
+      <input type="number" formControlName="cantidad" matInput>
+    </mat-form-field>
+  </div>
 
-    <button mat-raised-button class="btn btn-success"  type="submit" [disabled]="inventarioForm.invalid">Crear inventario</button>
-  </form>
-  
+  <mat-form-field appearance="fill" floatLabel="always">
+    <mat-label>Precio</mat-label>
+    <input formControlName="precio" matInput type="number" class="example-right-align" placeholder="0">
+    <span matTextSuffix>€</span>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Fecha de caducidad" formControlName="fechaCaducidad">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-raised-button class="btn btn-success" type="submit" [disabled]="inventarioForm.invalid">Crear
+    inventario</button>
+</form>
