@@ -118,27 +118,27 @@ export class ProductoComponent implements OnInit {
       );
     } else {
       this.productoService.getProducto(this.producto.id).subscribe(p => {
-        if (p != null) {
-          Swal.fire({
-            title: 'Producto ya existe',
-            text: 'El producto ya existe ¿Está seguro que quiere sobre escribir el producto?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, actualizar producto',
-            cancelButtonText: 'No'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.productoService.updateProducto(this.producto).subscribe(
-                () => this.router.navigate(['/'])
-              );
-            }
-          });
-        }else{
-          this.productoService.crearProducto(this.producto).subscribe(
-            () => this.router.navigate(['/'])
-          );
-        }
-      }) 
+
+        Swal.fire({
+          title: 'Producto ya existe',
+          text: 'El producto ya existe ¿Está seguro que quiere sobre escribir el producto?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, actualizar producto',
+          cancelButtonText: 'No'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.productoService.updateProducto(this.producto).subscribe(
+              () => this.router.navigate(['/'])
+            );
+          }
+        });
+      }, error => {
+        this.productoService.crearProducto(this.producto).subscribe(
+          () => this.router.navigate(['/'])
+        );
+      }
+      )
     }
   }
 
@@ -147,12 +147,20 @@ export class ProductoComponent implements OnInit {
     this.idEscaneado = id;
     this.id.nativeElement.value = this.idEscaneado;
     this.showQRScanner = false;
-    this.datosProductoService.getDatosProductos(id).subscribe(datos=>{
-      if(datos.status_verbose=="product found"){
+    this.datosProductoService.getDatosProductos(id).subscribe(datos => {
+      
+      if (datos.status_verbose == "product found") {
+        let imagenObtenida ="";
+        if(datos.product){
+          console.log(datos.product.selected_images)
+          imagenObtenida= datos.product.selected_images.front.display.es;
+        }else{
+          imagenObtenida = datos.product.image_front_url;
+        }
         this.formularioProducto.setValue({
           id: datos.code,
           nombre: datos.product.product_name,
-          imagen: datos.product.image_front_url
+          imagen: imagenObtenida
         });
       }
     })

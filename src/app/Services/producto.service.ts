@@ -21,12 +21,19 @@ export class ProductoService {
     const url = `${Constants.API_URL_PRODUCTO}/${id}`;
     return this.http.get<Producto>(url).pipe(
       catchError(e => {
-        this.router.navigate(['/productos']);
-        console.error(e.error.mensaje);
-        Swal.fire('Error al obtener', e.error.mensaje, 'error');
         return throwError(e)
       })
     );
+  }
+
+  async existeProducto(id: number): Promise<boolean> {
+    let existe = false;
+    this.getProducto(id).subscribe(p=>{
+      existe = true;
+    },error=>{
+      existe = false;
+    })
+    return existe;
   }
 
   getProductoAlmacenamiento(id: number): Observable<Producto[]> {

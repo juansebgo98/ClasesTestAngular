@@ -1,6 +1,7 @@
 
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import Swal from 'sweetalert2';
 import { ProductoService } from '../../Services/producto.service';
@@ -23,7 +24,7 @@ export class ProductListComponent implements OnInit {
   searchTerm: string = "";
   showQRScanner=false;
 
-  constructor(private productoService: ProductoService, private datePipe: DatePipe) { }
+  constructor(private router: Router,private productoService: ProductoService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.obtenerProductos();
@@ -113,6 +114,10 @@ export class ProductListComponent implements OnInit {
     this.productoService.getProducto(id).subscribe(producto =>{
       this.searchTerm = producto.nombre;
       this.filterProducts();
+    },error=>{
+      this.router.navigate(['/productos']);
+      console.error(error.error.mensaje);
+      Swal.fire('Error al obtener', error.error.mensaje, 'error');
     })
     this.showQRScanner = false;
   }

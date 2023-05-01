@@ -13,7 +13,7 @@ export class DatosProductoService {
   constructor(private http: HttpClient, private router: Router) { }
 
   getDatosProductos(id: number): Observable<Root> {
-    return this.http.get<Root>(Constants.API_DATOS_PRODUCTOS+'/'+id+'&fields=code,product_name,image_front_url');
+    return this.http.get<Root>(Constants.API_DATOS_PRODUCTOS+id+'&fields=code,product_name,image_front_url,selected_images');
   }
 
 }

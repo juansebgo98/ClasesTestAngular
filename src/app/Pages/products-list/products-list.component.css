@@ -1,5 +1,8 @@
 .card {
   border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card-title-highlight {
@@ -10,13 +13,24 @@
   margin-bottom: 1rem;
 }
 
+.card-img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  flex-grow: 1;
+}
+
 .card img {
-  object-fit: cover;
+  max-width: 600px;
+  max-height: 400px;
+  height: 100%;
 }
 
 .card .card-body {
   background-color: #fff;
   color: #333;
+  flex: 1 0 auto;
 }
 
 .card .card-footer {
@@ -27,17 +41,16 @@
   color: #fff;
 }
 
-
 .white-text {
   color: #ffffff;
 }
+
 .search-container {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: 20px;
-  
 }
 
 input[type="text"] {
