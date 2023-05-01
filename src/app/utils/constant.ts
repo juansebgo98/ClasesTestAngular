@@ -1,6 +1,11 @@
 import { HttpHeaders } from "@angular/common/http";
 
 export class Constants {
+  //API ENDPOINTS PRODUCTOS
+  public static readonly API_DATOS_PRODUCTOS = 'https://world.openfoodfacts.org/api/v2/product/';
+
+  //API ENDPOINTS APLICACION
+
   //public static readonly API_URL = 'http://100.79.195.105/api';
   public static readonly API_URL = 'https://despensaback.duckdns.org/api';
   public static readonly API_URL_PRODUCTO = Constants.API_URL + '/productos';

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import { ProductoService } from 'src/app/Services/producto.service';
 import { Producto } from 'src/app/models/Producto';
+import { DatosProductoService } from 'src/app/Services/datosproducto.service';
 
 @Component({
   selector: 'app-producto',
@@ -28,7 +29,8 @@ export class ProductoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private datosProductoService: DatosProductoService
   ) { }
 
   ngOnInit(): void {
@@ -145,6 +147,15 @@ export class ProductoComponent implements OnInit {
     this.idEscaneado = id;
     this.id.nativeElement.value = this.idEscaneado;
     this.showQRScanner = false;
+    this.datosProductoService.getDatosProductos(id).subscribe(datos=>{
+      if(datos.status_verbose=="product found"){
+        this.formularioProducto.setValue({
+          id: datos.code,
+          nombre: datos.product.product_name,
+          imagen: datos.product.image_front_url
+        });
+      }
+    })
   }
 
   mostrarQRScanner() {
