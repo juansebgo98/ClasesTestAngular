@@ -151,8 +151,7 @@ export class ProductoComponent implements OnInit {
       
       if (datos.status_verbose == "product found") {
         let imagenObtenida ="";
-        if(datos.product){
-          console.log(datos.product.selected_images)
+        if(datos.product.image_front_url=="" || datos.product.image_front_url==undefined ) {
           imagenObtenida= datos.product.selected_images.front.display.es;
         }else{
           imagenObtenida = datos.product.image_front_url;
