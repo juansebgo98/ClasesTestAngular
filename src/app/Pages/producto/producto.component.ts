@@ -65,12 +65,8 @@ export class ProductoComponent implements OnInit {
 
   guardarProducto() {
     const id = Number(this.formularioProducto.value.id);
-    console.log(id);
     if (id == null || id == undefined || id == 0) {
       this.formularioProducto.value.id = this.idEscaneado;
-      console.log(this.formularioProducto.value.id);
-      console.log(this.formularioProducto.value.imagen);
-      console.log(this.formularioProducto.value.nombre);
     }
     if (this.formularioProducto.value.id == 0 && this.formularioProducto.value.imagen == null && this.formularioProducto.value.nombre == null) {
       // Resaltar campos inválidos en rojo
@@ -111,6 +107,7 @@ export class ProductoComponent implements OnInit {
     this.producto.id = this.formularioProducto.value.id;
     this.producto.nombre = this.formularioProducto.value.nombre;
     this.producto.imagen = this.formularioProducto.value.imagen;
+    this.producto.cantidadMinima = -1;
 
     if (this.producto.id == this.idActual) {
       this.productoService.updateProducto(this.producto).subscribe(
@@ -148,12 +145,12 @@ export class ProductoComponent implements OnInit {
     this.id.nativeElement.value = this.idEscaneado;
     this.showQRScanner = false;
     this.datosProductoService.getDatosProductos(id).subscribe(datos => {
-      
+
       if (datos.status_verbose == "product found") {
-        let imagenObtenida ="";
-        if(datos.product.image_front_url=="" || datos.product.image_front_url==undefined ) {
-          imagenObtenida= datos.product.selected_images.front.display.es;
-        }else{
+        let imagenObtenida = "";
+        if (datos.product.image_front_url == "" || datos.product.image_front_url == undefined) {
+          imagenObtenida = datos.product.selected_images.front.display.es;
+        } else {
           imagenObtenida = datos.product.image_front_url;
         }
         this.formularioProducto.setValue({

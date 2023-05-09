@@ -6,6 +6,7 @@ import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import Swal from 'sweetalert2';
 import { ProductoService } from '../../Services/producto.service';
 import { Producto } from '../../models/Producto';
+import { Inventario } from 'src/app/models/Inventario';
 
 
 @Component({
@@ -46,6 +47,11 @@ export class ProductListComponent implements OnInit {
             .map(i => new Date(i.fechaCaducidad).getTime())
             .filter(t => !isNaN(t))
         ));
+        let total = 0;
+        for(let i = 0; i < producto.inventarios.length; i++) {
+          total = total + producto.inventarios[i].cantidad;
+        }
+        producto.cantidadAlmacenado = total;
       });
       // Ordenar primero por fecha más próxima, y luego por aquellos sin fecha de caducidad
       this.productos = productos.sort((a, b) => {

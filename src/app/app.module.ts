@@ -22,6 +22,7 @@ import { ProductoService } from "./Services/producto.service";
 import { AppComponent } from "./app.component";
 
 import localeES from '@angular/common/locales/es';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button'; // <-- importar MatButtonModule
 import { MatCardModule } from '@angular/material/card'; // <-- importar MatCardModule
 import { MatDatepickerModule } from '@angular/material/datepicker'; // <-- importar MatDatepickerModule
@@ -76,7 +77,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    NgxScannerQrcodeModule
+    NgxScannerQrcodeModule,
+    MatBadgeModule
   ],
   providers: [
     AlmacenamientoService,
