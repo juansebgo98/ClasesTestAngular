@@ -30,7 +30,7 @@
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let producto of filteredProducts">
       <div class="card card-height shadow"
-        [matBadgeColor]="producto.cantidadAlmacenado <= producto.cantidadMinima || producto.cantidadAlmacenado <= 0 ? 'warn' : 'principal'"
+        [matBadgeColor]="producto.listaCompra && (producto.cantidadAlmacenado <= producto.cantidadMinima || producto.cantidadAlmacenado <= 0) ? 'warn' : 'principal'"
         matBadge="{{producto.cantidadAlmacenado}}" matBadgeSize="large">
         <div class="card card-height shadow" matBadgeColor="principal" matBadge="{{producto.cantidadAlmacenado}}"
           matBadgeSize="large">

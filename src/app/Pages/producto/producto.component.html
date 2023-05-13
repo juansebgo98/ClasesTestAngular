@@ -12,8 +12,7 @@
           <label for="id" class="mr-3">ID:</label>
           <div class="d-flex align-items-center">
             <input #id type="number" class="form-control mr-3" formControlName="id">
-            <button type="button" color="primary" mat-fab aria-label="Escanear codigo"
-              (click)="mostrarQRScanner();">
+            <button type="button" color="primary" mat-fab aria-label="Escanear codigo" (click)="mostrarQRScanner();">
               <i class="bi bi-upc-scan" style="font-size: 24px;"></i>
             </button>
           </div>
@@ -40,6 +39,26 @@
           <div *ngIf="f['imagen'].invalid && (f['imagen'].dirty || f['imagen'].touched)">
             <div *ngIf="f['imagen'].errors.required">
               La imagen es obligatoria.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tienda">Tienda:</label>
+          <select class="form-select" aria-label="Tienda" id="tienda" formControlName="tienda">
+            <option value="0" disabled>Seleccione una opcion</option>
+            <option *ngFor="let tienda of tiendas" value="{{tienda.id}}">{{ tienda.nombre }}</option>
+          </select>
+        </div>
+        <div class="form-group form-switch">
+          <input class="form-check-input" type="checkbox" id="anniadirCompra" formControlName="anniadirCompra"
+            (change)="anniadirACompra()">
+          <label class="form-check-label" for="aniadirCompra">Añadir a la compra</label>
+        </div>
+        <div *ngIf="anniadirCompra">
+          <div class="form-group">
+            <label for="minimoCompra" class="mr-3">Cantidad minina para comprar:</label>
+            <div class="d-flex align-items-center">
+              <input id="minimoCompra" type="number" class="form-control mr-3" formControlName="minimoCompra">
             </div>
           </div>
         </div>

@@ -8,6 +8,8 @@ import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import { ProductoService } from 'src/app/Services/producto.service';
 import { Producto } from 'src/app/models/Producto';
 import { DatosProductoService } from 'src/app/Services/datosproducto.service';
+import { Tienda } from 'src/app/models/Tienda';
+import { TiendaService } from 'src/app/Services/tienda.service';
 
 @Component({
   selector: 'app-producto',
@@ -23,6 +25,8 @@ export class ProductoComponent implements OnInit {
   showQRScanner = false;
   @ViewChild('action') action: any;
   @ViewChild('divScanner') divScanner: ElementRef;
+  anniadirCompra: boolean;
+  tiendas: Tienda[];
 
 
   constructor(
@@ -30,14 +34,23 @@ export class ProductoComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private productoService: ProductoService,
-    private datosProductoService: DatosProductoService
+    private datosProductoService: DatosProductoService,
+    private tiendaService: TiendaService
   ) { }
 
   ngOnInit(): void {
+    this.tiendaService.getTiendas().subscribe(tiendas => {
+      this.tiendas = tiendas;
+    });
+
+    this.anniadirCompra = false;
     this.formularioProducto = this.formBuilder.group({
       id: ['', Validators.required],
       nombre: ['', Validators.required],
-      imagen: ['https://www.cardboardboxshop.com.au/wp-content/uploads/2020/10/Archive-Carton.jpg', Validators.required]
+      imagen: ['https://www.cardboardboxshop.com.au/wp-content/uploads/2020/10/Archive-Carton.jpg', Validators.required],
+      anniadirCompra: [],
+      minimoCompra: [],
+      tienda: []
     });
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -47,11 +60,19 @@ export class ProductoComponent implements OnInit {
       this.productoService.getProducto(+id).subscribe(
         producto => {
           this.producto = producto;
+          let tiendaId = 0;
+          if (this.producto.tienda != null) {
+            tiendaId = this.producto.tienda.id;
+          }
           this.formularioProducto.setValue({
             id: producto.id,
             nombre: producto.nombre,
-            imagen: producto.imagen
+            imagen: producto.imagen,
+            anniadirCompra: producto.listaCompra,
+            minimoCompra: producto.cantidadMinima,
+            tienda: tiendaId
           });
+          this.anniadirCompra = producto.listaCompra;
         }
       );
     } else {
@@ -65,10 +86,11 @@ export class ProductoComponent implements OnInit {
 
   guardarProducto() {
     const id = Number(this.formularioProducto.value.id);
+    let fallo = false;
     if (id == null || id == undefined || id == 0) {
       this.formularioProducto.value.id = this.idEscaneado;
     }
-    if (this.formularioProducto.value.id == 0 && this.formularioProducto.value.imagen == null && this.formularioProducto.value.nombre == null) {
+    if (this.formularioProducto.value.id == 0 || this.formularioProducto.value.imagen == null || this.formularioProducto.value.nombre == "") {
       // Resaltar campos inválidos en rojo
       Object.keys(this.formularioProducto.controls).forEach(key => {
         this.formularioProducto.controls[key].markAsDirty();
@@ -78,10 +100,18 @@ export class ProductoComponent implements OnInit {
       // Mostrar mensaje de error con SweetAlert2
       Swal.fire({
         icon: 'error',
-        title: 'Error',
+        title: 'Error, Campos incompletos',
         text: 'Por favor, completa correctamente todos los campos.',
       });
-
+      fallo = true;
+      return;
+    } else if (this.formularioProducto.value.anniadirCompra && this.formularioProducto.value.minimoCompra == null) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error, Campos incompletos',
+        text: 'Si se selecciona añadir a la compra se debe poner una cantidad minima.',
+      });
+      fallo = true;
       return;
     }
 
@@ -107,7 +137,18 @@ export class ProductoComponent implements OnInit {
     this.producto.id = this.formularioProducto.value.id;
     this.producto.nombre = this.formularioProducto.value.nombre;
     this.producto.imagen = this.formularioProducto.value.imagen;
-    this.producto.cantidadMinima = -1;
+    this.producto.listaCompra = this.formularioProducto.value.anniadirCompra;
+    console.log(this.formularioProducto.value.tienda);
+    if (this.formularioProducto.value.tienda != 0) {
+      let tienda: Tienda = new Tienda(this.formularioProducto.value.tienda);
+      this.producto.tienda = tienda;
+    }
+
+    if (this.producto.listaCompra == false) {
+      this.producto.cantidadMinima = 0;
+    } else {
+      this.producto.cantidadMinima = this.formularioProducto.value.minimoCompra;
+    }
 
     if (this.producto.id == this.idActual) {
       this.productoService.updateProducto(this.producto).subscribe(
@@ -165,6 +206,11 @@ export class ProductoComponent implements OnInit {
   mostrarQRScanner() {
     this.showQRScanner = true;
     this.action.start();
+  }
+
+  anniadirACompra() {
+    this.anniadirCompra = !this.anniadirCompra;
+
   }
 
 }

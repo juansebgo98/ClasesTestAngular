@@ -46,7 +46,7 @@ export class InventarioDetailsComponent implements OnInit {
       cantidad: ['', Validators.required],
       almacenamiento: ['', Validators.required],
       precio: [''],
-      fechaCaducidad: ['', Validators.required]
+      fechaCaducidad: []
     });
     this.almacenamientoService.getAlmacenamientos().subscribe(almacenamientos => {
       this.almacenamientos = almacenamientos;

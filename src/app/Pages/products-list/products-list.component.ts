@@ -6,7 +6,6 @@ import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import Swal from 'sweetalert2';
 import { ProductoService } from '../../Services/producto.service';
 import { Producto } from '../../models/Producto';
-import { Inventario } from 'src/app/models/Inventario';
 
 
 @Component({
@@ -19,13 +18,13 @@ export class ProductListComponent implements OnInit {
 
   @ViewChild('action') action: any;
   @ViewChild('divScanner') divScanner: ElementRef;
-  
+
   productos: Producto[];
   filteredProducts: Producto[];
   searchTerm: string = "";
-  showQRScanner=false;
+  showQRScanner = false;
 
-  constructor(private router: Router,private productoService: ProductoService, private datePipe: DatePipe) { }
+  constructor(private router: Router, private productoService: ProductoService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.obtenerProductos();
@@ -48,7 +47,7 @@ export class ProductListComponent implements OnInit {
             .filter(t => !isNaN(t))
         ));
         let total = 0;
-        for(let i = 0; i < producto.inventarios.length; i++) {
+        for (let i = 0; i < producto.inventarios.length; i++) {
           total = total + producto.inventarios[i].cantidad;
         }
         producto.cantidadAlmacenado = total;
@@ -117,10 +116,10 @@ export class ProductListComponent implements OnInit {
 
   public onEvent(e: ScannerQRCodeResult[]): void {
     const id = parseInt(e[0].value, 10);
-    this.productoService.getProducto(id).subscribe(producto =>{
+    this.productoService.getProducto(id).subscribe(producto => {
       this.searchTerm = producto.nombre;
       this.filterProducts();
-    },error=>{
+    }, error => {
       this.router.navigate(['/productos']);
       console.error(error.error.mensaje);
       Swal.fire('Error al obtener', error.error.mensaje, 'error');
