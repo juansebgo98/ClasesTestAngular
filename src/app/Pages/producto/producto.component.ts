@@ -198,7 +198,10 @@ export class ProductoComponent implements OnInit {
         this.formularioProducto.setValue({
           id: datos.code,
           nombre: datos.product.product_name,
-          imagen: imagenObtenida
+          imagen: imagenObtenida,
+          anniadirCompra: this.formularioProducto.value.anniadirCompra,
+          minimoCompra: this.formularioProducto.value.minimoCompra,
+          tienda: this.formularioProducto.value.tienda
         });
       }
     })

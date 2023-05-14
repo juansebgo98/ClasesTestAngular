@@ -53,24 +53,49 @@ export class InventarioDetailsComponent implements OnInit {
     });
   }
 
-  crearInventario() {
+  async crearInventario() {
     // Obtener los valores del formulario
     const valoresFormulario = this.inventarioForm.value;
+    let nuevoInventario = new Inventario();
 
-    // Crear una nueva instancia de Inventario con los valores del formulario
-    const nuevoInventario = new Inventario();
-    nuevoInventario.producto = this.producto;
-    nuevoInventario.almacenamiento = valoresFormulario.almacenamiento;
-    nuevoInventario.cantidad = valoresFormulario.cantidad;
-    let fecha = new Date(valoresFormulario.fechaCaducidad);
-    fecha.setHours(12);
-    nuevoInventario.fechaCaducidad = fecha;
+    const inventarios = await this.inventarioService.getInventarioProductoAlmacenamiento(this.producto.id, valoresFormulario.almacenamiento.id).toPromise();
+    for (let i = 0; i < inventarios.length; i++) {
+      const fechaCaducidad = new Date(valoresFormulario.fechaCaducidad);
+      fechaCaducidad.setDate(fechaCaducidad.getDate() + 1);
+      const fechaCaducidadString = fechaCaducidad.toISOString().substring(0, 10);
 
-    // Llamar al método de servicio para crear el inventario
-    this.inventarioService.crearInventario(nuevoInventario).subscribe(() => {
-      // Si se crea el inventario correctamente, redirigir a la pantalla de detalles del producto
-      this.router.navigate([`/inventario/${this.producto.id}`]);
-    });
+
+      if (new Date(inventarios[i].fechaCaducidad).toISOString().substring(0, 10) === fechaCaducidadString) {
+        nuevoInventario = inventarios[i];
+        break;
+      }
+    }
+
+    if (nuevoInventario.id == null) {
+      nuevoInventario.producto = this.producto;
+      nuevoInventario.almacenamiento = valoresFormulario.almacenamiento;
+      nuevoInventario.cantidad = valoresFormulario.cantidad;
+      if (valoresFormulario.fechaCaducidad != null) {
+        let fecha = new Date(valoresFormulario.fechaCaducidad);
+        fecha.setHours(12);
+        nuevoInventario.fechaCaducidad = fecha;
+      }
+      // Crear una nueva instancia de Inventario con los valores del formulario
+      this.inventarioService.crearInventario(nuevoInventario).subscribe(() => {
+
+        // Llamar al método de servicio para crear el inventario
+        // Si se crea el inventario correctamente, redirigir a la pantalla de detalles del producto
+        this.router.navigate([`/inventario/${this.producto.id}`]);
+      });
+    } else {
+      let cantidad: number = valoresFormulario.cantidad;
+
+      nuevoInventario.cantidad += cantidad;
+      this.inventarioService.updateInventario(nuevoInventario).subscribe(() => {
+        this.router.navigate([`/inventario/${this.producto.id}`]);
+      });
+    }
+
   }
 
 }
