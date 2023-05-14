@@ -139,7 +139,7 @@ export class ProductoComponent implements OnInit {
     this.producto.imagen = this.formularioProducto.value.imagen;
     this.producto.listaCompra = this.formularioProducto.value.anniadirCompra;
     console.log(this.formularioProducto.value.tienda);
-    if (this.formularioProducto.value.tienda != 0) {
+    if (this.formularioProducto.value.tienda != 0 && this.formularioProducto.value.tienda != null) {
       let tienda: Tienda = new Tienda(this.formularioProducto.value.tienda);
       this.producto.tienda = tienda;
     }
