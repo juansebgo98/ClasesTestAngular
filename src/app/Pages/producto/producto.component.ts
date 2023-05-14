@@ -48,13 +48,14 @@ export class ProductoComponent implements OnInit {
       id: ['', Validators.required],
       nombre: ['', Validators.required],
       imagen: ['https://www.cardboardboxshop.com.au/wp-content/uploads/2020/10/Archive-Carton.jpg', Validators.required],
-      anniadirCompra: [],
+      anniadirCompra: [false],
       minimoCompra: [],
-      tienda: []
+      tienda: [0]
     });
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.idActual = parseInt(id);
+    
 
     if (id !== null) {
       this.productoService.getProducto(+id).subscribe(
