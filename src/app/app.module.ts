@@ -31,6 +31,8 @@ import { MatIconModule } from '@angular/material/icon'; // <-- importar MatIconM
 import { MatInputModule } from '@angular/material/input'; // <-- importar MatInputModule
 import { MatSelectModule } from '@angular/material/select'; // <-- importar MatSelectModule
 import { NgxScannerQrcodeModule } from "ngx-scanner-qrcode";
+import {MatDialogModule} from '@angular/material/dialog';
+import { DialogMovelComponent } from './Components/dialog-movel/dialog-movel.component';
 
 
 
@@ -57,7 +59,8 @@ const routes: Routes = [
     ProductListComponent,
     ProductoInventoryComponent,
     ProductoComponent,
-    InventarioDetailsComponent
+    InventarioDetailsComponent,
+    DialogMovelComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ const routes: Routes = [
     MatNativeDateModule,
     MatSelectModule,
     NgxScannerQrcodeModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatDialogModule
   ],
   providers: [
     AlmacenamientoService,
