@@ -41,6 +41,18 @@ export class AlmacenamientoService {
     );
   }
 
+  getAlmacenamientoInventario(id: number): Observable<Almacenamiento> {
+    const url = `${Constants.API_URL_ALMACENAMIENTO}/inventario/${id}`;
+    return this.http.get<Almacenamiento>(url).pipe(
+      catchError(e => {
+        this.router.navigate(['/almacenamiento']);
+        console.error(e.error.mensaje);
+        Swal.fire('Error al obtener almacenamiento ' + id, e.error.mensaje, 'error');
+        return throwError(e)
+      })
+    );
+  }
+
   crearAlmacenamiento(almacenamiento: Almacenamiento): Observable<Almacenamiento> {
     return this.http.post<Almacenamiento>(Constants.API_URL_ALMACENAMIENTO, almacenamiento).pipe(
       map((response: any) => response.almacenamiento as Almacenamiento),

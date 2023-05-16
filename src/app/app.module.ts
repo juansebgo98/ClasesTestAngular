@@ -32,7 +32,7 @@ import { MatInputModule } from '@angular/material/input'; // <-- importar MatInp
 import { MatSelectModule } from '@angular/material/select'; // <-- importar MatSelectModule
 import { NgxScannerQrcodeModule } from "ngx-scanner-qrcode";
 import {MatDialogModule} from '@angular/material/dialog';
-import { DialogMovelComponent } from './Components/dialog-movel/dialog-movel.component';
+import { DialogMoverComponent } from './Components/dialog-mover/dialog-mover.component';
 
 
 
@@ -60,7 +60,7 @@ const routes: Routes = [
     ProductoInventoryComponent,
     ProductoComponent,
     InventarioDetailsComponent,
-    DialogMovelComponent
+    DialogMoverComponent
   ],
   imports: [
     BrowserModule,

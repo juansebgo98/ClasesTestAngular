@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Mover inventario {{producto?.nombre}}</h1>
+<div mat-dialog-content [formGroup]="inventarioForm">
+
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Almacenamiento</mat-label>
+      <mat-select formControlName="almacenamiento" (valueChange)="quitarError()">
+        <mat-option *ngFor="let almacenamiento of almacenamientos" [value]="almacenamiento">
+          {{ almacenamiento.nombre }}
+        </mat-option>
+      </mat-select>
+      <div class="error-message" *ngIf="mensajeAlmacenamiento">
+        {{mensajeAlmacenamiento}}
+      </div>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Cantidad a mover</mat-label>
+      <input type="number" formControlName="cantidad" matInput (change)="quitarError()">
+      <div class="error-message" *ngIf="mensajeCantidad">
+        {{mensajeCantidad}}
+      </div>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button color="primary" (click)="moverProducto()">Mover</button>
+    <button mat-button color="warn" [mat-dialog-close]="inventario" cdkFocusInitial>Cancelar</button>
+  </div>

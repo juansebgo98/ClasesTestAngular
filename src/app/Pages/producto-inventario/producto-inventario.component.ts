@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
-import { DialogMovelComponent } from 'src/app/Components/dialog-movel/dialog-movel.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DialogMoverComponent } from 'src/app/Components/dialog-mover/dialog-mover.component';
 import { AlmacenamientoService } from 'src/app/Services/almacenamiento.service';
 import { InventarioService } from 'src/app/Services/inventario.service';
 import { ProductoService } from 'src/app/Services/producto.service';
@@ -25,9 +25,14 @@ export class ProductoInventoryComponent implements OnInit {
   almacenamientos: Almacenamiento[];
 
   constructor(private productoService: ProductoService, private datePipe: DatePipe, private inventarioService: InventarioService,
-    private almacenamientoService: AlmacenamientoService, private activatedRoute: ActivatedRoute, public dialog: MatDialog) { }
+    private almacenamientoService: AlmacenamientoService, private activatedRoute: ActivatedRoute, public dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit() {
+    this.buscarInventario();
+  }
+
+  buscarInventario() {
     this.activatedRoute.paramMap.subscribe(params => {
       this.idProducto = +params.get('id');
       this.productoService.getProducto(this.idProducto).subscribe(
@@ -53,8 +58,17 @@ export class ProductoInventoryComponent implements OnInit {
   }
 
   mover(inventario: Inventario) {
-    const dialogRef = this.dialog.open(DialogMovelComponent);
+    const dialogRef = this.dialog.open(DialogMoverComponent, {
+      data: { inventario: inventario, producto: this.producto },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      setTimeout(() => {
+        this.buscarInventario();
+      }, 500);
+    });
   }
+
 
   decrementCantidad(inventario: Inventario) {
     inventario.cantidad--;
