@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import { AlmacenamientoService } from 'src/app/Services/almacenamiento.service';
 import { InventarioService } from 'src/app/Services/inventario.service';
 import { Almacenamiento } from 'src/app/models/Almacenamiento';
@@ -19,6 +20,9 @@ export class InventarioDetailsComponent implements OnInit {
   inventarioForm: FormGroup;
   almacenamientos: Almacenamiento[];
   selectedValue: Almacenamiento;
+  showQRScanner: boolean;
+  @ViewChild('action') action: any;
+  almacenamientoEncontrado: Almacenamiento;
 
 
   constructor(
@@ -58,21 +62,33 @@ export class InventarioDetailsComponent implements OnInit {
     const valoresFormulario = this.inventarioForm.value;
     let nuevoInventario = new Inventario();
 
-    const inventarios = await this.inventarioService.getInventarioProductoAlmacenamiento(this.producto.id, valoresFormulario.almacenamiento.id).toPromise();
+    const inventarios = await this.inventarioService.getInventarioProductoAlmacenamiento(this.producto.id, valoresFormulario.almacenamiento).toPromise();
+
     for (let i = 0; i < inventarios.length; i++) {
-      const fechaCaducidad = new Date(valoresFormulario.fechaCaducidad);
-      fechaCaducidad.setDate(fechaCaducidad.getDate() + 1);
-      const fechaCaducidadString = fechaCaducidad.toISOString().substring(0, 10);
+      let fechaCaducidadString = null;
+      let fechaObtenida = null;
 
+      if (valoresFormulario.fechaCaducidad != null) {
+        const fechaCaducidad = new Date(valoresFormulario.fechaCaducidad);
+        fechaCaducidad.setDate(fechaCaducidad.getDate() + 1);
+        fechaCaducidadString = fechaCaducidad.toISOString().substring(0, 10);
+      }
 
-      if (new Date(inventarios[i].fechaCaducidad).toISOString().substring(0, 10) === fechaCaducidadString) {
+      fechaObtenida = new Date(inventarios[i].fechaCaducidad).toISOString().substring(0, 10);
+      if (fechaObtenida == '1970-01-01') {
+        fechaObtenida = null;
+      }
+      if (fechaObtenida === fechaCaducidadString) {
         nuevoInventario = inventarios[i];
         break;
       }
     }
+    this.almacenamientoEncontrado = await this.almacenamientoService.getAlmacenamiento(valoresFormulario.almacenamiento).toPromise();
+
     if (nuevoInventario.id == null) {
+
       nuevoInventario.producto = this.producto;
-      nuevoInventario.almacenamiento = valoresFormulario.almacenamiento;
+      nuevoInventario.almacenamiento = this.almacenamientoEncontrado;
       nuevoInventario.cantidad = valoresFormulario.cantidad;
       if (valoresFormulario.fechaCaducidad != null) {
         let fecha = new Date(valoresFormulario.fechaCaducidad);
@@ -96,5 +112,28 @@ export class InventarioDetailsComponent implements OnInit {
     }
 
   }
+
+  mostrarQRScanner() {
+    this.showQRScanner = true;
+    setTimeout(() => {
+      this.action.start();
+      this.action.deviceActive = 0;
+    }, 100);
+  }
+
+  public escaneado(e: ScannerQRCodeResult[]): void {
+    const id = parseInt(e[0].value, 10);
+    this.showQRScanner = false;
+    this.almacenamientoService.getAlmacenamiento(id).subscribe(almacenamientoEncontrado => {
+      this.inventarioForm.setValue({
+        almacenamiento: almacenamientoEncontrado.id,
+        cantidad: this.inventarioForm.value.cantidad,
+        precio: this.inventarioForm.value.precio,
+        fechaCaducidad: this.inventarioForm.value.fechaCaducidad
+      })
+    });
+    this.action.stop()
+  }
+
 
 }

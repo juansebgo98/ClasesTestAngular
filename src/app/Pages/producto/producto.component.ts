@@ -55,7 +55,7 @@ export class ProductoComponent implements OnInit {
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.idActual = parseInt(id);
-    
+
 
     if (id !== null) {
       this.productoService.getProducto(+id).subscribe(
@@ -182,6 +182,7 @@ export class ProductoComponent implements OnInit {
   }
 
   public escaneado(e: ScannerQRCodeResult[]): void {
+
     const id = parseInt(e[0].value, 10);
     this.idEscaneado = id;
     this.id.nativeElement.value = this.idEscaneado;
@@ -205,12 +206,14 @@ export class ProductoComponent implements OnInit {
         });
       }
     })
+
   }
 
   mostrarQRScanner() {
     this.showQRScanner = true;
     setTimeout(() => {
       this.action.start();
+      this.action.deviceActive = 0;
     }, 100);
   }
 
