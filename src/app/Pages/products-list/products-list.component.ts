@@ -111,7 +111,9 @@ export class ProductListComponent implements OnInit {
 
   activarCamaraBuscar() {
     this.showQRScanner = true;
-    this.action.start();
+    setTimeout(() => {
+        this.action.start();
+      }, 300);
   }
 
   public onEvent(e: ScannerQRCodeResult[]): void {

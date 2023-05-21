@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-directiva',
-  templateUrl: './directiva.component.html',
-  styleUrls: ['./directiva.component.css']
+  selector: 'app-almacenamiento',
+  templateUrl: './almacenamiento.component.html',
+  styleUrls: ['./almacenamiento.component.css']
 })
-export class DirectivaComponent {
+export class AlmacenamientoComponent {
   listaCurso: string[] = ['TypeScript', 'JavaScript', 'Java SE', 'C#'];
 
   habilitar: boolean = true;

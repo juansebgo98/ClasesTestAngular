@@ -11,7 +11,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FooterComponent } from "./Components/footer/footer.component";
 import { HeaderComponent } from "./Components/header/header.component";
 import { PaginatorComponent } from "./Components/paginator/paginator.component";
-import { DirectivaComponent } from "./Pages/directiva/directiva.component";
+import { AlmacenamientoComponent } from "./Pages/almacenamiento/almacenamiento.component";
 import { InventarioDetailsComponent } from "./Pages/inventario-details/inventario-details.component";
 import { ProductoInventoryComponent } from "./Pages/producto-inventario/producto-inventario.component";
 import { ProductoComponent } from "./Pages/producto/producto.component";
@@ -26,12 +26,12 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button'; // <-- importar MatButtonModule
 import { MatCardModule } from '@angular/material/card'; // <-- importar MatCardModule
 import { MatDatepickerModule } from '@angular/material/datepicker'; // <-- importar MatDatepickerModule
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field'; // <-- importar MatFormFieldModule
 import { MatIconModule } from '@angular/material/icon'; // <-- importar MatIconModule
 import { MatInputModule } from '@angular/material/input'; // <-- importar MatInputModule
 import { MatSelectModule } from '@angular/material/select'; // <-- importar MatSelectModule
 import { NgxScannerQrcodeModule } from "ngx-scanner-qrcode";
-import {MatDialogModule} from '@angular/material/dialog';
 import { DialogMoverComponent } from './Components/dialog-mover/dialog-mover.component';
 
 
@@ -40,7 +40,7 @@ registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
   { path: '', redirectTo: '/productos', pathMatch: 'full' },
-  { path: 'directivas', component: DirectivaComponent },
+  { path: 'almacenamiento', component: AlmacenamientoComponent },
   { path: 'productos', component: ProductListComponent },
   { path: 'inventario/:id', component: ProductoInventoryComponent },
   { path: 'producto/:id', component: ProductoComponent },
@@ -54,7 +54,7 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    DirectivaComponent,
+    AlmacenamientoComponent,
     PaginatorComponent,
     ProductListComponent,
     ProductoInventoryComponent,

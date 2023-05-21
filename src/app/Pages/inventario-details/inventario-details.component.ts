@@ -70,7 +70,6 @@ export class InventarioDetailsComponent implements OnInit {
         break;
       }
     }
-
     if (nuevoInventario.id == null) {
       nuevoInventario.producto = this.producto;
       nuevoInventario.almacenamiento = valoresFormulario.almacenamiento;

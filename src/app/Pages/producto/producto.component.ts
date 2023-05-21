@@ -209,7 +209,9 @@ export class ProductoComponent implements OnInit {
 
   mostrarQRScanner() {
     this.showQRScanner = true;
-    this.action.start();
+    setTimeout(() => {
+      this.action.start();
+    }, 300);
   }
 
   anniadirACompra() {
