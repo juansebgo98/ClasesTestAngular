@@ -213,7 +213,6 @@ export class ProductoComponent implements OnInit {
     this.showQRScanner = true;
     setTimeout(() => {
       this.action.start();
-      this.action.deviceActive = 0;
     }, 100);
   }
 
