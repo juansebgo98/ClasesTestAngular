@@ -91,7 +91,6 @@ export class ProductListComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.productoService.deleteProducto(id).subscribe(() => {
-          // Remove product from filtered list
           this.filteredProducts = this.filteredProducts.filter(producto => producto.id !== id);
           Swal.fire(
             '¡Eliminado!',
@@ -112,15 +111,15 @@ export class ProductListComponent implements OnInit {
   activarCamaraBuscar() {
     this.showQRScanner = true;
     setTimeout(() => {
-        this.action.start();
-      }, 300);
+      this.action.start();
+    }, 300);
   }
 
   public onEvent(e: ScannerQRCodeResult[]): void {
     const id = parseInt(e[0].value, 10);
     this.productoService.getProducto(id).subscribe(producto => {
+      this.filteredProducts = [producto];
       this.searchTerm = producto.nombre;
-      this.filterProducts();
     }, error => {
       this.router.navigate(['/productos']);
       console.error(error.error.mensaje);
