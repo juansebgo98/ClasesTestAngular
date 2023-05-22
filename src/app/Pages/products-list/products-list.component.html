@@ -20,7 +20,7 @@
         </div>
         <p *ngIf="action.isLoading">⌛ Loading...</p>
         <div class="search-container" style="height: 200px; width: 200px;">
-          <ngx-scanner-qrcode [facingMode]="'back'" #action="scanner" (event)="onEvent($event);action.stop();"
+          <ngx-scanner-qrcode #action="scanner" (event)="onEvent($event);action.stop();"
             class="mt-3"></ngx-scanner-qrcode>
         </div>
       </div>
