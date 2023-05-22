@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScannerQRCodeResult } from 'ngx-scanner-qrcode';
 import { ProductoService } from 'src/app/Services/producto.service';
@@ -27,7 +25,6 @@ export class ProductoComponent implements OnInit {
   @ViewChild('divScanner') divScanner: ElementRef;
   anniadirCompra: boolean;
   tiendas: Tienda[];
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,7 +52,6 @@ export class ProductoComponent implements OnInit {
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.idActual = parseInt(id);
-
 
     if (id !== null) {
       this.productoService.getProducto(+id).subscribe(
