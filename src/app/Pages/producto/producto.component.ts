@@ -209,20 +209,6 @@ export class ProductoComponent implements OnInit {
     this.showQRScanner = true;
     setTimeout(() => {
       this.action.start();
-      let listaCamaras = this.action.devices.value;
-      for (let i = 0; i < listaCamaras.length; i++) {
-        let c = listaCamaras[i];
-        if (c.label.toLowerCase().includes("back")) {
-          this.action.selectDevice(c.deviceId).then(() => {
-            // Resto del código dentro del condicional
-            // Aquí puedes realizar las acciones necesarias con la cámara trasera seleccionada
-          }).catch((error) => {
-            // Manejo de errores si no se pudo seleccionar la cámara trasera
-          });
-          break; // Termina el bucle una vez que se ha encontrado la cámara trasera
-        }         
-      }
-
     }, 100);
   }
 
